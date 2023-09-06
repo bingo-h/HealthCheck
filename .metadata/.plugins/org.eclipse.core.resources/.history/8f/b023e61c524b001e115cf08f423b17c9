@@ -1,0 +1,5 @@
+package com.bingo.server.service;
+
+public interface UserService {
+
+}
