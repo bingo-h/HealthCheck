@@ -1,5 +1,0 @@
-package com.bingo.server.mapper;
-
-public interface OrderMapper {
-
-}

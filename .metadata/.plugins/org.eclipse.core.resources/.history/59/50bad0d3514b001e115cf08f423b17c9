@@ -1,5 +1,0 @@
-package com.bingo.server;
-
-public class WebMvcConfig {
-
-}

@@ -1,7 +1,0 @@
-package com.bingo.server.service.impl;
-
-import com.bingo.server.service.OrderService;
-
-public class OrderServiceImpl implements OrderService {
-
-}
