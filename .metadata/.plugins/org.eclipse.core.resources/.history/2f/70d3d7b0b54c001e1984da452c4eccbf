@@ -1,0 +1,14 @@
+package com.bingo.server.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.bingo.server.mapper.OrderMapper;
+import com.bingo.server.service.OrderService;
+
+public class OrderServiceImpl implements OrderService {
+
+	@Autowired
+	private OrderMapper orderMapper;
+	
+	
+}

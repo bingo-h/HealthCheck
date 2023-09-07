@@ -1,0 +1,5 @@
+package com.bingo.server.po;
+
+public class ProjectData {
+
+}

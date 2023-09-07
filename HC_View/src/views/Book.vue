@@ -1,0 +1,161 @@
+<template>
+    <div class="wrapper">
+        <header>
+            <i class="fa fa-angle-left" onclick="history.go(-1)"></i>
+            <p>用户体检预约</p>
+            <div></div>
+        </header>
+        <div class="top-ban"></div>
+
+        <section>
+            <img src="../img/yuyue.png">
+            <p>
+                <img src="../img/benrenyuyue.png" @click="hospitals">
+                <img src="../img/jiashuyuyue.png">
+            </p>
+        </section>
+
+        <div class="bottom-ban"></div>
+        <Footer></Footer>
+    </div>
+</template>
+
+<script>
+import Footer from '@/components/Footer.vue'
+import { useRouter } from 'vue-router';
+import { getSessionStorage } from '@/common';
+import axios from 'axios';
+axios.baseURL = 'http://localhost:8080/hc'
+
+export default {
+    props: ['Book'],
+    setup() {
+        const router = useRouter()
+
+        function hospitals() {
+            axios.post('order/done', getSessionStorage('user'))
+                .then((response) => {
+                    console.log(response.data)
+                    if (response.data == 0) {
+                        router.push('/hospitals')
+                    } else {
+                        alert("有未完成的预约，无法预约")
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+
+        return {
+            hospitals
+        }
+    },
+    components: {
+        Footer
+    }
+}
+</script>
+
+<style scoped>
+/*********************** 总容器 ***********************/
+.wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+/*********************** header ***********************/
+header {
+    width: 100%;
+    height: 15.7vw;
+    background-color: #FFF;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-sizing: border-box;
+    padding: 0 3.6vw;
+}
+
+header .fa {
+    font-size: 8vw;
+}
+
+/*********************** footer ***********************/
+footer {
+    width: 100%;
+    height: 14.2vw;
+    box-sizing: border-box;
+    border-top: solid 1px #E9E9E9;
+    background-color: #FFF;
+
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+footer ul {
+    width: 100%;
+    height: 14.2vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+footer ul li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 3vw;
+    color: #999;
+
+    user-select: none;
+    cursor: pointer;
+}
+
+footer ul li .fa {
+    font-size: 5vw;
+}
+
+/*********************** common样式 ***********************/
+.top-ban {
+    width: 100%;
+    height: 15.7vw;
+}
+
+.bottom-ban {
+    width: 100%;
+    height: 14.2vw;
+}
+
+/*********************** section ***********************/
+section {
+    width: 100%;
+}
+
+section img {
+    width: 100vw;
+}
+
+section p {
+    box-sizing: border-box;
+    padding: 0 3.6vw;
+    margin-top: 10vw;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+section p img {
+    width: 44vw;
+    border-radius: 1.6vw;
+    display: block;
+    cursor: pointer;
+}</style>

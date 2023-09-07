@@ -1,0 +1,10 @@
+package com.bingo.server.po;
+
+public class Hospital {
+
+	private Integer hpId;
+	
+	private String name;
+	
+	private 
+}

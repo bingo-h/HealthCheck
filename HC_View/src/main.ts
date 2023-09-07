@@ -14,12 +14,12 @@ app.mount('#app')
 router.beforeEach((to, from, next) => {
     let user = sessionStorage.getItem('user');
     if (user != '') {
-        if (!(to.path == '/' || to.path == '/login' || to.path == '/register')) {
-            if (user == '') {
-                router.push('/login');
-            }
-        } else {
+        if (to.path == '/' || to.path == '/login' || to.path == '/register' || to.path == '/index' 
+        || to.path == '/book' || to.path == '/viewreport' || to.path == '/me' || to.path == '/hospitals'
+        || to.path == '/selectpj') {
             next()
+        } else {
+            router.push('/login')
         }
     } else {
         next();

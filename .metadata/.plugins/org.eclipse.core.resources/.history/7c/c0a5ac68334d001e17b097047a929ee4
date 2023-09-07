@@ -1,0 +1,16 @@
+package com.bingo.server.po;
+
+public class Doctor {
+
+	private Integer docId;
+	
+	private String docCode;
+	
+	private String realName;
+	
+	private String password;
+	
+	private Integer sex;
+	
+	private Integer deptno;
+}

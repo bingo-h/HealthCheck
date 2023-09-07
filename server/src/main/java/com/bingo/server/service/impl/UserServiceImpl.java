@@ -11,12 +11,21 @@ import com.bingo.server.service.UserService;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UserMapper usermapper;
+	private UserMapper userMapper;
 	
 	@Override
 	public User login(User user) {
 		// TODO Auto-generated method stub
-		return usermapper.getUsers_ByUserId_ByPassword(user);
+		return userMapper.getUsers_ByUserId_ByPassword(user);
 	}
 
+	@Override
+	public User getUsers_ByUserId(String userId) {
+		return userMapper.getUsers_ByUserId(userId);
+	}
+	
+	@Override
+	public int register(User user) {
+		return userMapper.saveUser(user);
+	}
 }

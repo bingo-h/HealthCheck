@@ -11,25 +11,20 @@
                 <i class="fa fa-lock"></i>
                 <input type="password" v-model="user.password" placeholder="输入登录密码">
             </div>
-            <div class="reg-box">
-                <p onclick="location.href='register.html'">注册</p>
+            <div class="reg-box" @click="toRegister">
+                <p>注册</p>
                 <p>忘记密码？</p>
             </div>
             <div class="button-box" @click="login">登录</div>
         </section>
 
-        <footer>
-            <div>
-                <div class="line"></div>
-                <p>有疑问请联系客服</p>
-                <div class="line"></div>
-            </div>
-            <p>4008-XXX-XXX</p>
-        </footer>
+        <Footer></Footer>
     </div>
 </template>
  
 <script lang="ts">
+import Footer from '@/components/Footer.vue'
+
 //导入需要的基本工具
 import { reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
@@ -70,13 +65,13 @@ export default {
             axios.post('user/login', state.user)
                 .then((response) => {
                     //拿到响应数据之后
-                    console.log(response.data)
+                    console.log("响应数据：" + response.data)
                     let user = response.data;
 
                     if (user != '') {
-                        console.log(user);
                         //放入浏览器端的session数据存储域
                         setSessionStorage('user', user);
+                        console.log("跳转到index中")
                         router.push('/index');
                     } else {
                         alert('手机号或者密码错误');
@@ -98,6 +93,9 @@ export default {
             login,
             toRegister
         }
+    },
+    components: {
+        Footer
     }
 }
 </script>

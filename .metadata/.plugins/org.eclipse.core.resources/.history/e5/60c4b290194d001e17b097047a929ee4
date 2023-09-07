@@ -1,0 +1,5 @@
+package com.bingo.server.service.impl;
+
+public class HospitalServiceImpl {
+
+}
