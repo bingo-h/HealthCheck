@@ -7,12 +7,9 @@ import org.apache.ibatis.annotations.Select;
 
 import com.bingo.server.po.Hospital;
 
-@Mapper
 public interface HospitalMapper {
 	
-	@Select("select * from hospital where hpId=#{hpId}")
-	public Hospital getHospitalsByHId(String hpId);
+	Hospital getHospitalsByHId(String hpId);
 	
-	@Select("select * from hospital where state=#{state} order by hpId")
-	public List<Hospital> getHospitalsByState(Integer state);
+    List<Hospital> getHospitalsByState(Integer state);
 }

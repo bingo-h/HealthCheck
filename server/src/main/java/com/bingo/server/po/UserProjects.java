@@ -1,5 +1,10 @@
 package com.bingo.server.po;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class UserProjects {
 
 	private Integer sdId;
@@ -8,30 +13,4 @@ public class UserProjects {
 	
 	private Integer ciId;
 
-	public Integer getSdId() {
-		return sdId;
-	}
-
-	public void setSdId(Integer sdId) {
-		this.sdId = sdId;
-	}
-
-	public Integer getSmId() {
-		return smId;
-	}
-
-	public void setSmId(Integer smId) {
-		this.smId = smId;
-	}
-
-	public Integer getCiId() {
-		return ciId;
-	}
-
-	public void setCiId(Integer ciId) {
-		this.ciId = ciId;
-	}
-	
-	
-	
 }

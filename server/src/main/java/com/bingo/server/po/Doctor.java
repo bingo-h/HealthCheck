@@ -1,5 +1,12 @@
 package com.bingo.server.po;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.ibatis.type.Alias;
+
+@Getter
+@Setter
+@Alias("doc")
 public class Doctor {
 
 	private Integer docId;
@@ -13,54 +20,5 @@ public class Doctor {
 	private Integer sex;
 	
 	private Integer deptno;
-
-	public Integer getDocId() {
-		return docId;
-	}
-
-	public void setDocId(Integer docId) {
-		this.docId = docId;
-	}
-
-	public String getDocCode() {
-		return docCode;
-	}
-
-	public void setDocCode(String docCode) {
-		this.docCode = docCode;
-	}
-
-	public String getRealName() {
-		return realName;
-	}
-
-	public void setRealName(String realName) {
-		this.realName = realName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Integer getSex() {
-		return sex;
-	}
-
-	public void setSex(Integer sex) {
-		this.sex = sex;
-	}
-
-	public Integer getDeptno() {
-		return deptno;
-	}
-
-	public void setDeptno(Integer deptno) {
-		this.deptno = deptno;
-	}
-	
 	
 }

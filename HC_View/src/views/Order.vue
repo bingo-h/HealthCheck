@@ -25,7 +25,7 @@ import Footer from '@/components/Footer.vue'
 import { useRouter } from 'vue-router';
 import { getSessionStorage } from '@/common';
 import axios from 'axios';
-axios.baseURL = 'http://localhost:8080/hc'
+axios.defaults.baseURL = 'http://localhost:8080/hc'
 
 export default {
     props: ['Book'],
@@ -36,7 +36,7 @@ export default {
             axios.post('order/done', getSessionStorage('user'))
                 .then((response) => {
                     console.log(response.data)
-                    if (response.data == 0) {
+                    if (response.data === 0) {
                         router.push('/hospitals')
                     } else {
                         alert("有未完成的预约，无法预约")

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bingo.server.mapper.UserMapper">
+    <resultMap id="userRM" type="user">
+        <id property="userId" column="userId"/>
+        <result property="password" column="password"/>
+        <result property="realName" column="realName"/>
+        <result property="sex" column="sex"/>
+        <result property="identityCard" column="identityCard"/>
+        <result property="birthday" column="birthday"/>
+        <result property="userType" column="userType"/>
+    </resultMap>
+
+    <select id="getUsers_ByUserId_ByPassword" resultMap="userRM">
+        select * from users where userId=#{userId} and password=#{password}
+    </select>
+
+    <select id="getUsers_ByUserId" resultMap="userRM">
+        select * from users where userId=#{userId}
+    </select>
+
+    <insert id="saveUser">
+        insert into users values(#{userId},#{password},#{realName},#{sex},#{identityCard},
+        #{birthday},#{userType})
+    </insert>
+</mapper>

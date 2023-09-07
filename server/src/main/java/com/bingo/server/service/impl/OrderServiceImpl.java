@@ -14,6 +14,8 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public int getOrdersDoneByUserId(String userId) {
-		return orderMapper.getOrdersDoneByUserId(userId);
+		Integer number = orderMapper.getOrdersDoneByUserId(userId);
+		if (number == null) number = 0;
+		return number;
 	}
 }

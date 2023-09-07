@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bingo.server.mapper.HospitalMapper">
+    <resultMap id="hospitalRM" type="hospital">
+        <id property="hpId" column="hpId"/>
+        <result property="name" column="name"/>
+        <result property="picture" column="picture"/>
+        <result property="telephone" column="telephone"/>
+        <result property="address" column="address"/>
+        <result property="businessHours" column="businessHours"/>
+        <result property="deadline" column="deadline"/>
+        <result property="rule" column="rule"/>
+        <result property="state" column="state"/>
+    </resultMap>
+
+    <select id="getHospitalsByHId" resultMap="hospitalRM">
+        select * from hospital where hpId=#{hpId}
+    </select>
+
+    <select id="getHospitalsByState" resultMap="hospitalRM">
+        select * from hospital where state=#{state} order by hpId
+    </select>
+</mapper>

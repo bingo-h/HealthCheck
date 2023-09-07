@@ -7,19 +7,20 @@ server:
 # mysql 配置
 spring:
     datasource:
-        driver-class-name: com.mysql.jdbc.Driver
+        driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/health_check?characterEncoding=utf-8
         username: root
         password: 12345aB!
         
 # mybatis 配置
-mybatis: 
-    mapper-location: classpath:mapper/*.xml
+mybatis:
+    mapper-locations: classpath:mapper/*.xml
     type-aliases-package: com.bingo.server.po
+    config-location: classpath:mybatis-config.xml
 
 # 日志
 logging: 
     level: 
-      org.springframework: debug
-      com.bingo.server.mapper: debug
+      org.springframework: info
+      com.bingo.server.mapper: info
     
