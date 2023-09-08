@@ -6,7 +6,7 @@ import Order from '@/views/Order.vue'
 import Viewreport from '@/views/Viewreport.vue'
 import Me from '@/views/Me.vue'
 import Hospitals from '@/views/Hospitals.vue'
-import Selectpj from '@/views/Selectpj.vue'
+import Selectproject from "@/views/Selectproject.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -52,9 +52,9 @@ const router = createRouter({
       component: Hospitals
     },
     {
-      path: '/selectpj',
-      name: 'Selectpj',
-      component: Selectpj
+      path: '/selectproject',
+      name: 'Selectproject',
+      component: Selectproject
     }
   ]
 })

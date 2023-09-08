@@ -6,7 +6,7 @@ import org.apache.ibatis.type.Alias;
 
 @Getter
 @Setter
-@Alias("detail")
+@Alias("item")
 public class Item {
 
 	private Integer ciId;

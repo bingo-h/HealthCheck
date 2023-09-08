@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface ProjectItemsMapper {
+public interface ProjectItemMapper {
 
-    List<Item> getItemsByProjectId(String smId);
+    List<Item> getItemsByProjectId(Integer smId);
 }

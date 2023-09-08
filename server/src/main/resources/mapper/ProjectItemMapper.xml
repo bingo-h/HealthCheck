@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bingo.server.mapper.ProjectItemMapper">
+    <resultMap id="projectitemRM" type="projectitem">
+        <id property="sdId" column="sdId"/>
+        <result property="smId" column="smId"/>
+        <result property="ciId" column="ciId"/>
+        <association property="item" javaType="item" select="com.bingo.server.mapper.ItemMapper.getItemById" column="ciId"/>
+    </resultMap>
+
+    <select id="getItemsByProjectId" resultMap="projectitemRM">
+        select * from setmealdetailed where smId=#{smId}
+    </select>
+</mapper>

@@ -82,7 +82,7 @@ export default {
     }
 
     function toSelectPJ(hpId) {
-      router.push({path: '/selectpj', query: {hpId: hpId}})
+      router.push({path: '/selectproject', query: {hpId: hpId}})
     }
 
     return {

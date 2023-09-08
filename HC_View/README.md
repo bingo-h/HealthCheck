@@ -28,6 +28,7 @@ npm install
 ```
 
 ### Compile and Hot-Reload for Development
+### **请使用下面的命令启动服务，而不是```npm run serve```**
 
 ```sh
 npm run dev

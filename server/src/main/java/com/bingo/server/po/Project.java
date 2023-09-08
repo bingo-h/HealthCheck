@@ -19,6 +19,6 @@ public class Project {
 	
 	private Integer price;
 
-	private List<Item> items;
+	private List<Item> itemList;
 
 }

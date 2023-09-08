@@ -17,8 +17,8 @@ public class ProjectController {
     private ProjectService projectService;
 
     @RequestMapping("/select")
-    public List<Project> getAllSelectProjects(@RequestBody Project project) {
-        System.out.println(projectService.getAllProjects(project.getType()));
-        return projectService.getAllProjects(project.getType());
+    public List<Project> getProjectsByType(@RequestBody Project project) {
+        System.out.println(projectService.getProjectsByType(project.getType()));
+        return projectService.getProjectsByType(project.getType());
     }
 }
