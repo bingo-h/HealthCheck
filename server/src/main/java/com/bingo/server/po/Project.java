@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.ibatis.type.Alias;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Alias("project")
@@ -17,5 +19,6 @@ public class Project {
 	
 	private Integer price;
 
-	private ProjectDetails projectDetails;
+	private List<Item> items;
+
 }

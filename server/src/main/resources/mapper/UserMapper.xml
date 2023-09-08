@@ -13,17 +13,4 @@
         <result property="birthday" column="birthday"/>
         <result property="userType" column="userType"/>
     </resultMap>
-
-    <select id="getUsers_ByUserId_ByPassword" resultMap="userRM">
-        select * from users where userId=#{userId} and password=#{password}
-    </select>
-
-    <select id="getUsers_ByUserId" resultMap="userRM">
-        select * from users where userId=#{userId}
-    </select>
-
-    <insert id="saveUser">
-        insert into users values(#{userId},#{password},#{realName},#{sex},#{identityCard},
-        #{birthday},#{userType})
-    </insert>
 </mapper>

@@ -9,11 +9,5 @@
         <result property="name" column="name"/>
         <result property="type" column="type"/>
         <result property="price" column="price"/>
-        <association property="projectDetails" column="projectDetails" javaType="detail"
-                     select=""/>
     </resultMap>
-
-    <select id="getAllProjects" resultMap="selectprojectRM">
-        select * from setmeal where type=#{type}
-    </select>
 </mapper>

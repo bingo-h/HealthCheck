@@ -2,10 +2,12 @@ package com.bingo.server.po;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 @Getter
 @Setter
-public class UserProjects {
+@Alias("projectitem")
+public class ProjectItem {
 
 	private Integer sdId;
 	
@@ -13,4 +15,5 @@ public class UserProjects {
 	
 	private Integer ciId;
 
+	private Item item;
 }

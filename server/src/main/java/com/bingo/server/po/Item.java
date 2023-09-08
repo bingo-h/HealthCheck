@@ -7,7 +7,7 @@ import org.apache.ibatis.type.Alias;
 @Getter
 @Setter
 @Alias("detail")
-public class ProjectDetails {
+public class Item {
 
 	private Integer ciId;
 	

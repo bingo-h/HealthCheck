@@ -12,8 +12,4 @@
         <result property="smId" column="smId"/>
         <result property="state" column="state"/>
     </resultMap>
-
-    <select id="getOrdersDoneByUserId" resultMap="orderRM">
-        select count(*) from orders where userId=#{userId} and state=1
-    </select>
 </mapper>

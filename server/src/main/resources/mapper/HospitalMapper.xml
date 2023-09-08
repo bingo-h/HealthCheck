@@ -15,12 +15,4 @@
         <result property="rule" column="rule"/>
         <result property="state" column="state"/>
     </resultMap>
-
-    <select id="getHospitalsByHId" resultMap="hospitalRM">
-        select * from hospital where hpId=#{hpId}
-    </select>
-
-    <select id="getHospitalsByState" resultMap="hospitalRM">
-        select * from hospital where state=#{state} order by hpId
-    </select>
 </mapper>
