@@ -10,4 +10,7 @@ import java.util.List;
 public interface ProjectMapper {
 
     List<Project> getProjectsByType(Integer type);
+
+    @Select("select * from setmeal where smId=#{smId}")
+    Project getProjectById(Integer smId);
 }

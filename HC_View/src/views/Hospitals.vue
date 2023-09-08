@@ -9,7 +9,7 @@
 
     <ul class="hospital">
       <li v-for="hp in hospitalList" :key="hp.hpId">
-        <h3 @click="toSelectPJ(hp.hpId)">
+        <h3 @click="toSelectProjects(hp.hpId)">
           {{ hp.name }}
           <i class="fa fa-angle-right"></i>
         </h3>
@@ -56,6 +56,7 @@
 import Footer from '@/components/Footer.vue'
 import {toRefs, reactive} from 'vue'
 import {useRouter} from 'vue-router';
+import {setSessionStorage} from "@/common";
 import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:8080/hc'
@@ -81,13 +82,14 @@ export default {
           })
     }
 
-    function toSelectPJ(hpId) {
+    function toSelectProjects(hpId) {
+      setSessionStorage('hpId', hpId)
       router.push({path: '/selectproject', query: {hpId: hpId}})
     }
 
     return {
       ...toRefs(state),
-      toSelectPJ
+      toSelectProjects
     }
   },
   components: {

@@ -11,7 +11,7 @@
     <ul class="setmeal">
       <li v-for="project in projects" :key="project.smId">
         <div class="item">
-          <div class="item-left" @click="toCalender">
+          <div class="item-left" @click="toSelectDate(project.smId)">
             <h3>{{ project.type === 1 ? '男士套餐' : '女士套餐' }}</h3>
             <p>{{ project.name }}</p>
           </div>
@@ -44,7 +44,7 @@
 
 <script>
 import Footer from '@/components/Footer.vue';
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {toRefs, reactive} from "vue"
 import {getSessionStorage} from "@/common";
 import axios from 'axios';
@@ -52,11 +52,13 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:8080/hc'
 
 export default {
-  props: ["Selectproject"],
+  props: ["SelectProject"],
   setup() {
     const router = useRouter()
+    const route = useRoute()
     const state = reactive({
-      projects: []
+      projects: [],
+      hpId: route.query.hpId
     })
 
     init()
@@ -74,9 +76,14 @@ export default {
             console.log(error)
           })
     }
-    
+
+    function toSelectDate(smId) {
+      router.push({path: '/selectdate', query: {hpId: state.hpId, smId: smId}})
+    }
+
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      toSelectDate
     }
   },
   components: {

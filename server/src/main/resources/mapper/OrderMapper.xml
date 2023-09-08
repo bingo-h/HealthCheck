@@ -11,5 +11,22 @@
         <result property="hpId" column="hpId"/>
         <result property="smId" column="smId"/>
         <result property="state" column="state"/>
+        <association property="hospital" column="hpId" javaType="hospital"
+                     select="com.bingo.server.mapper.HospitalMapper.getHospitalById"/>
+        <association property="project" column="smId" javaType="project"
+                     select="com.bingo.server.mapper.ProjectMapper.getProjectById"/>
     </resultMap>
+
+    <select id="listBookNumber" parameterType="OrderMapperDto"
+            resultType="CalendarResponseDto">
+        <foreach collection="list" item="dto" separator="union">
+            select #{dto.date} ymd,count(*) existing from orders
+            where orderDate=#{dto.date} and hpId=#{dto.hpId}
+        </foreach>
+    </select>
+
+    <select id="listOrdersByUserId" parameterType="order" resultMap="orderRM">
+        select * from orders where userId=#{userId} and state=#{state}
+        order by orderId desc
+    </select>
 </mapper>

@@ -6,6 +6,7 @@
 <configuration>
     <typeAliases>
         <package name="com.bingo.server.po"/>
+        <package name="com.bingo.server.dto"/>
     </typeAliases>
     
     <mappers>

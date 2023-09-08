@@ -55,7 +55,7 @@
                         <p>网上购买上门服务</p>
                     </div>
                 </li>
-                <li @click="book">
+                <li @click="order">
                     <img src="../img/menu06.png">
                     <div class="nav-item-text">
                         <h3>团检预约</h3>
@@ -233,15 +233,15 @@ export default {
             router.push('/viewreport')
         }
 
-        function book() {
-            router.push('/book')
+        function order() {
+            router.push('/order')
         }
 
         return {
             scrollBarRef,
             scrollBoxRef,
             ViewReport,
-            book
+            order
         }
     },
     components: {

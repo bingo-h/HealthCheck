@@ -17,8 +17,6 @@
             </div>
             <div class="button-box" @click="login">登录</div>
         </section>
-
-        <Footer></Footer>
     </div>
 </template>
  
@@ -93,9 +91,6 @@ export default {
             login,
             toRegister
         }
-    },
-    components: {
-        Footer
     }
 }
 </script>

@@ -10,7 +10,7 @@ import com.bingo.server.po.Hospital;
 public interface HospitalMapper {
 
     @Select("select * from hospital where hpId=#{hpId}")
-	Hospital getHospitalsByHId(String hpId);
+	Hospital getHospitalById(Integer hpId);
 
     @Select("select * from hospital where state=#{state} order by hpId")
     List<Hospital> getHospitalsByState(Integer state);

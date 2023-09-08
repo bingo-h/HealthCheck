@@ -20,4 +20,8 @@ public class Order {
 	private Integer smId;
 	
 	private Integer state;
+
+	private Hospital hospital;
+
+	private Project project;
 }

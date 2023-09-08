@@ -15,8 +15,8 @@ router.beforeEach((to, from, next) => {
     let user = sessionStorage.getItem('user');
     if (user != '') {
         if (to.path == '/' || to.path == '/login' || to.path == '/register' || to.path == '/index' 
-        || to.path == '/book' || to.path == '/viewreport' || to.path == '/me' || to.path == '/hospitals'
-        || to.path == '/selectproject') {
+        || to.path == '/order' || to.path == '/viewreport' || to.path == '/me' || to.path == '/hospitals'
+        || to.path == '/selectproject' || to.path == '/selectdate') {
             next()
         } else {
             router.push('/login')

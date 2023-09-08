@@ -28,7 +28,7 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:8080/hc'
 
 export default {
-    props: ['Book'],
+    props: ['Order'],
     setup() {
         const router = useRouter()
 
