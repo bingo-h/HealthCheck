@@ -28,6 +28,7 @@ export default defineComponent({
     function init() {
       axios.post('calendar/getcalendar', {hpId: state.hpId, smId: state.smId, year: state.year, month: state.month})
           .then((response) => {
+            // Vue3.0给我们提供的新方法，toRaw方法是把被reactive或readonly后的Proxy对象转换为原来的target对象
             state.calendar = toRaw(response.data)
 
             for (let i = 0; i < state.calendar.length; i++) {
