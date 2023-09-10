@@ -17,6 +17,20 @@ export default defineComponent({
       month: date.getMonth() + 1
     })
 
+    function init() {
+      console.log(state.hpId)
+      axios.post('calendar/getcalendar',{hpId:state.hpId,smId:state.smId,year:state.year,month:state.month})
+      .then((response) => {
+        console.log(response.data)
+        state.calendar = response.data
+      })
+      .catch((error) => {
+      console.log(error)
+      })
+    }
+
+    init()
+
     return {
       ...toRefs(state)
     }
