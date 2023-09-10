@@ -12,11 +12,11 @@ import lombok.*;
 public class CalendarResponseDto {
 
     @NonNull
-    private String Date;
+    private String date;
 
-    private Integer Maximum;
+    private Integer maximum;
 
-    private Integer Exist;
+    private Integer exist;
 
-    private Integer Remain;
+    private Integer remain;
 }

@@ -1,12 +1,18 @@
 <script lang="ts">
-import {defineComponent, reactive, toRefs} from 'vue'
+import {defineComponent, reactive, toRaw, toRefs} from 'vue'
 import Footer from "@/components/Footer.vue";
 import router from "@/router";
 import {useRoute} from "vue-router";
 import axios from "axios";
+import {state} from "vue-tsc/out/shared";
 
 export default defineComponent({
   name: "SelectDate",
+  computed: {
+    state() {
+      return state
+    }
+  },
   setup() {
     const date = new Date()
     const route = useRoute()
@@ -15,14 +21,20 @@ export default defineComponent({
       hpId: route.query.hpId,
       smId: route.query.smId,
       year: date.getFullYear(),
-      month: date.getMonth() + 1
+      month: date.getMonth() + 1,
+      day: date.getDay()
     })
 
     function init() {
       axios.post('calendar/getcalendar', {hpId: state.hpId, smId: state.smId, year: state.year, month: state.month})
           .then((response) => {
-            console.log(response.data)
-            state.calendar = response.data
+            state.calendar = toRaw(response.data)
+
+            for (let i = 0; i < state.calendar.length; i++) {
+              if (state.calendar[i].date != null)
+                state.calendar[i].day = parseInt(state.calendar[i].date.substring(8))
+            }
+            console.log(state)
           })
           .catch((error) => {
             console.log(error)
@@ -51,7 +63,7 @@ export default defineComponent({
     <section>
       <div class="date-box">
         <i class="fa fa-caret-left"></i>
-        <p>2022年1月</p>
+        <p>{{ year + "年" + month + "月" }}</p>
         <i class="fa fa-caret-right"></i>
       </div>
       <table>
@@ -66,153 +78,9 @@ export default defineComponent({
         </tr>
       </table>
       <ul>
-        <li>
-          <p></p>
-          <p></p>
-        </li>
-        <li>
-          <p></p>
-          <p></p>
-        </li>
-        <li>
-          <p></p>
-          <p></p>
-        </li>
-        <li>
-          <p></p>
-          <p></p>
-        </li>
-        <li>
-          <p></p>
-          <p></p>
-        </li>
-        <li>
-          <p></p>
-          <p></p>
-        </li>
-        <li>
-          <p>1</p>
-          <p></p>
-        </li>
-        <li>
-          <p>2</p>
-          <p></p>
-        </li>
-        <li>
-          <p>3</p>
-          <p></p>
-        </li>
-        <li>
-          <p>4</p>
-          <p></p>
-        </li>
-        <li>
-          <p>5</p>
-          <p></p>
-        </li>
-        <li>
-          <p>6</p>
-          <p></p>
-        </li>
-        <li>
-          <p>7</p>
-          <p></p>
-        </li>
-        <li>
-          <p>8</p>
-          <p></p>
-        </li>
-        <li>
-          <p>9</p>
-          <p></p>
-        </li>
-        <li>
-          <p>10</p>
-          <p></p>
-        </li>
-        <li>
-          <p>11</p>
-          <p></p>
-        </li>
-        <li>
-          <p>12</p>
-          <p></p>
-        </li>
-        <li>
-          <p>13</p>
-          <p></p>
-        </li>
-        <li>
-          <p>14</p>
-          <p></p>
-        </li>
-        <li>
-          <p>15</p>
-          <p></p>
-        </li>
-        <li>
-          <p>16</p>
-          <p></p>
-        </li>
-        <li>
-          <p>17</p>
-          <p></p>
-        </li>
-        <li>
-          <p class="fontcolor pselect">18</p>
-          <p>余56</p>
-        </li>
-        <li>
-          <p class="fontcolor">19</p>
-          <p>余66</p>
-        </li>
-        <li>
-          <p class="fontcolor">20</p>
-          <p>余123</p>
-        </li>
-        <li>
-          <p class="fontcolor">21</p>
-          <p>余178</p>
-        </li>
-        <li>
-          <p class="fontcolor">22</p>
-          <p>余200</p>
-        </li>
-        <li>
-          <p class="fontcolor">23</p>
-          <p>余200</p>
-        </li>
-        <li>
-          <p class="fontcolor">24</p>
-          <p>余200</p>
-        </li>
-        <li>
-          <p class="fontcolor">25</p>
-          <p>余200</p>
-        </li>
-        <li>
-          <p class="fontcolor">26</p>
-          <p>余200</p>
-        </li>
-        <li>
-          <p class="fontcolor">27</p>
-          <p>余200</p>
-        </li>
-        <li>
-          <p class="fontcolor">28</p>
-          <p>余200</p>
-        </li>
-        <li>
-          <p class="fontcolor">29</p>
-          <p>余200</p>
-        </li>
-        <li>
-          <p class="fontcolor">30</p>
-          <p>余200</p>
-        </li>
-        <li>
-          <p class="fontcolor">31</p>
-          <p>余200</p>
+        <li v-for="cd in calendar" :key="cd.date">
+          <p :class="cd.remain!=null && (cd.remain > 0 || cd.day > day) ? 'fontcolor':''">{{ cd.day }}</p>
+          <p>{{ cd.remain != null && cd.remain > 0 ? "余" + cd.remain : "" }}</p>
         </li>
       </ul>
     </section>
