@@ -16,7 +16,8 @@ router.beforeEach((to, from, next) => {
     if (user != '') {
         if (to.path == '/' || to.path == '/login' || to.path == '/register' || to.path == '/index' 
         || to.path == '/order' || to.path == '/viewreport' || to.path == '/me' || to.path == '/hospitals'
-        || to.path == '/selectproject' || to.path == '/selectdate') {
+        || to.path == '/selectproject' || to.path == '/selectdate' || to.path == '/orderconfirm' ||
+        to.path == '/ordersuccess') {
             next()
         } else {
             router.push('/login')

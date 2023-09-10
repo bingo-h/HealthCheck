@@ -21,5 +21,10 @@ public class HospitalController {
 	public List<Hospital> getHospitalsByState(@RequestBody Hospital hospital) {
 		return hospitalService.getHospitalsByState(hospital.getState());
 	}
+
+	@RequestMapping("/get")
+	public Hospital getHospitalById(@RequestBody Hospital hospital) {
+		return hospitalService.getHospitalById(hospital.getHpId());
+	}
 	
 }

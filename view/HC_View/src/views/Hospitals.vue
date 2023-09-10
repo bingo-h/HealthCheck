@@ -80,6 +80,15 @@ export default {
           .catch((error) => {
             console.log(error)
           })
+
+      axios.post('', {state: 1})
+          .then((response) => {
+            state.hospitalList = response.data;
+            console.log(state.hospitalList)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
     }
 
     function toSelectProjects(hpId) {

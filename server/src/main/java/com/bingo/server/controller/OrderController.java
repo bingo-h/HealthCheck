@@ -1,5 +1,6 @@
 package com.bingo.server.controller;
 
+import com.bingo.server.po.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,5 +20,10 @@ public class OrderController {
 	public int getOrdersDoneByUserId(@RequestBody User user) {
 		String userId = user.getUserId();
 		return orderService.getOrdersDoneByUserId(userId);
+	}
+
+	@RequestMapping("/save")
+	public int saveOrder(@RequestBody Order order) {
+		return orderService.saveOrder(order);
 	}
 }

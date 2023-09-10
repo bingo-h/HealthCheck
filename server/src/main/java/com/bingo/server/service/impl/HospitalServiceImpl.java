@@ -20,4 +20,9 @@ public class HospitalServiceImpl implements HospitalService {
 		// TODO Auto-generated method stub
 		return hospitalMapper.getHospitalsByState(state);
 	}
+
+	@Override
+	public Hospital getHospitalById(Integer hpId) {
+		return hospitalMapper.getHospitalById(hpId);
+	}
 }

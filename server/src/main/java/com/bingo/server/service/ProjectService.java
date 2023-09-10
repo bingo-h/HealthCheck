@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ProjectService {
     List<Project> getProjectsByType(Integer type);
+
+    Project getProjectsById(Integer smId);
 }

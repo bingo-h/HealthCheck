@@ -6,5 +6,7 @@ import com.bingo.server.po.Hospital;
 
 public interface HospitalService {
 
-	public List<Hospital> getHospitalsByState(Integer state);
+	List<Hospital> getHospitalsByState(Integer state);
+
+	Hospital getHospitalById(Integer hpId);
 }

@@ -2,9 +2,9 @@
 import {defineComponent, reactive, toRaw, toRefs} from 'vue'
 import Footer from "@/components/Footer.vue";
 import router from "@/router";
-import {useRoute} from "vue-router";
 import axios from "axios";
 import {state} from "vue-tsc/out/shared";
+import {getSessionStorage, setSessionStorage} from "@/common";
 
 export default defineComponent({
   name: "SelectDate",
@@ -15,14 +15,14 @@ export default defineComponent({
   },
   setup() {
     const date = new Date()
-    const route = useRoute()
     const state = reactive({
       calendar: [],
-      hpId: route.query.hpId,
-      smId: route.query.smId,
+      hpId: getSessionStorage('hpId'),
+      smId: getSessionStorage('smId'),
       year: date.getFullYear(),
       month: date.getMonth() + 1,
-      day: date.getDay()
+      day: date.getDay(),
+      selectedIndex: 0
     })
 
     function init() {
@@ -45,19 +45,62 @@ export default defineComponent({
 
     init()
 
-    function selectDay(day: any) {
+    function selectDay(index: any) {
       for (let i = 0; i < state.calendar.length; i++) {
-        state.calendar[i].selected=0
+        state.calendar[i].selected = 0
       }
-      day.selected = 1
+
+      if (state.calendar[index].remain == null || state.calendar[index].remain == 0)
+        return
+
+      state.calendar[index].selected = 1
+
+      state.selectedIndex = index
+
+      setSessionStorage('date', state.calendar[index].date)
+    }
+
+    function addMonth() {
+      if (state.month == 12) {
+        state.month = 0;
+        state.year++
+      }
+      state.month++
+
+      init()
+    }
+
+    function subMonth() {
+      if (state.month == 1) {
+        state.month = 13;
+        state.year--
+      }
+      state.month--
+
+      init()
+    }
+
+    function toConfirm() {
+      if (state.calendar[state.selectedIndex].remain == null || state.calendar[state.selectedIndex].remain == 0) {
+        return
+      }
+
+      router.push('/orderconfirm')
     }
 
     return {
       ...toRefs(state),
-      selectDay
+      selectDay,
+      addMonth,
+      subMonth,
+      toConfirm
     }
-  },
-  components: {Footer}
+  }
+
+  ,
+  components: {
+    Footer
+  }
 })
 </script>
 
@@ -72,9 +115,9 @@ export default defineComponent({
 
     <section>
       <div class="date-box">
-        <i class="fa fa-caret-left"></i>
+        <i class="fa fa-caret-left" @click="subMonth"></i>
         <p>{{ year + "年" + month + "月" }}</p>
-        <i class="fa fa-caret-right"></i>
+        <i class="fa fa-caret-right" @click="addMonth"></i>
       </div>
       <table>
         <tr>
@@ -88,17 +131,17 @@ export default defineComponent({
         </tr>
       </table>
       <ul>
-        <li v-for="cd in calendar" :key="cd.date">
+        <li v-for="(cd,index) in calendar" :key="cd.date">
           <p :class="{fontcolor:cd.remain!=null && (cd.remain > 0 || cd.day > day), pselect:cd.selected==1}"
-             @click="selectDay(cd)">{{ cd.day }}</p>
-          <p>{{ cd.remain != null && (cd.remain > 0 || cd.day > day) ? "余" + cd.remain : "" }}</p>
+             @click="selectDay(index)">{{ cd.day }}</p>
+          <p>{{ cd.remain != null && cd.remain > 0 ? "余" + cd.remain : "" }}</p>
         </li>
       </ul>
     </section>
 
     <div class="bottom-btn">
       <div></div>
-      <div onclick="location.href='confirmorder.html'">下一步</div>
+      <div @click="toConfirm">下一步</div>
     </div>
 
     <div class="bottom-ban"></div>

@@ -3,6 +3,7 @@ package com.bingo.server.mapper;
 import com.bingo.server.dto.CalendarResponseDto;
 import com.bingo.server.dto.OrderMapperDto;
 import com.bingo.server.po.Order;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +18,7 @@ public interface OrderMapper {
 	List<CalendarResponseDto> listOrdersNumber(List<OrderMapperDto> list);
 
 	List<Order> listOrdersByUserId(Integer userId);
+
+	@Insert("insert into orders(orderDate,userId,hpId,smId,state) values (#{orderDate},#{userId},#{hpId},#{smId},#{state})")
+	Integer saveOrder(Order order);
 }

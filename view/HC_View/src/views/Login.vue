@@ -37,10 +37,7 @@ export default {
         //声明需要的数据变量
         const router = useRouter();
         const state = reactive({
-            user: {
-                userId: '',
-                password: ''
-            }
+            user: {}
         });
 
         //定义需要的函数
@@ -64,7 +61,8 @@ export default {
                 .then((response) => {
                     //拿到响应数据之后
                     console.log("响应数据：" + response.data)
-                    let user = response.data;
+                    state.user = response.data;
+                    let user = state.user
 
                     if (user != '') {
                         //放入浏览器端的session数据存储域

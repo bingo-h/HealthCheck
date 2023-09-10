@@ -8,6 +8,8 @@ import Me from '@/views/Me.vue'
 import Hospitals from '@/views/Hospitals.vue'
 import SelectProject from "@/views/SelectProject.vue";
 import SelectDate from "@/views/SelectDate.vue";
+import OrderConfirm from "@/views/OrderConfirm.vue";
+import OrderSuccess from "@/views/OrderSuccess.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -61,6 +63,16 @@ const router = createRouter({
             path: '/selectdate',
             name: 'SelectDate',
             component: SelectDate
+        },
+        {
+            path: '/orderconfirm',
+            name: 'OrderConfirm',
+            component: OrderConfirm
+        },
+        {
+            path: '/ordersuccess',
+            name: 'OrderSuccess',
+            component: OrderSuccess
         }
     ]
 })

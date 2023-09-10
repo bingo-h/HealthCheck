@@ -18,4 +18,9 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Project> getProjectsByType(Integer type) {
         return projectMapper.getProjectsByType(type);
     }
+
+    @Override
+    public Project getProjectsById(Integer smId) {
+        return projectMapper.getProjectById(smId);
+    }
 }

@@ -44,9 +44,9 @@
 
 <script>
 import Footer from '@/components/Footer.vue';
-import {useRoute, useRouter} from "vue-router";
+import router from "@/router";
 import {toRefs, reactive} from "vue"
-import {getSessionStorage} from "@/common";
+import {getSessionStorage, setSessionStorage} from "@/common";
 import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:8080/hc'
@@ -54,11 +54,9 @@ axios.defaults.baseURL = 'http://localhost:8080/hc'
 export default {
   props: ["SelectProject"],
   setup() {
-    const router = useRouter()
-    const route = useRoute()
     const state = reactive({
       projects: [],
-      hpId: route.query.hpId
+      hpId: getSessionStorage('hpId')
     })
 
     init()
@@ -78,7 +76,8 @@ export default {
     }
 
     function toSelectDate(smId) {
-      router.push({path: '/selectdate', query: {hpId: state.hpId, smId: smId}})
+      setSessionStorage('smId', smId)
+      router.push({path: '/selectdate'})
     }
 
     return {

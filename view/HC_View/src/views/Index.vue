@@ -180,7 +180,7 @@
 
 <script>
 import { reactive, toRefs, onMounted, ref} from 'vue'
-import { useRouter } from 'vue-router'
+import router from "@/router";
 import Footer from '@/components/Footer.vue'
 import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:8080/hc'
@@ -191,7 +191,6 @@ export default {
         const scrollBoxRef = ref(null);
         const scrollBarRef = ref(null);
 
-        const router = useRouter();
         const state = reactive({
 
         });
