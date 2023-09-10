@@ -17,10 +17,10 @@
                      select="com.bingo.server.mapper.ProjectMapper.getProjectById"/>
     </resultMap>
 
-    <select id="listBookNumber" parameterType="OrderMapperDto"
+    <select id="listOrdersNumber" parameterType="OrderMapperDto"
             resultType="CalendarResponseDto">
         <foreach collection="list" item="dto" separator="union">
-            select #{dto.date} ymd,count(*) existing from orders
+            select #{dto.date} Date,count(*) Exist from orders
             where orderDate=#{dto.date} and hpId=#{dto.hpId}
         </foreach>
     </select>

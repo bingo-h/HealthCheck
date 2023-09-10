@@ -17,7 +17,7 @@ public class CalendarController {
     @Autowired
     private CalendarService calendarService;
 
-    @RequestMapping("/getCalendar")
+    @RequestMapping("/getcalendar")
     public List<CalendarResponseDto> getCalendar(@RequestBody CalendarRequestDto calendarRequestDto) {
         return calendarService.getCalendar(calendarRequestDto);
     }

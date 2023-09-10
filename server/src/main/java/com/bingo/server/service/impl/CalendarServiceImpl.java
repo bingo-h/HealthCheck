@@ -36,11 +36,13 @@ public class CalendarServiceImpl implements CalendarService {
         //给当前日历填充total、existing、remainder属性
         for (CalendarResponseDto current : currentCalendarList) {
             for (CalendarResponseDto calendar : monthCalendarList) {
-                if (current.getDate().equals(calendar.getDate())) {
-                    current.setMaximum(calendar.getMaximum());
-                    current.setExist(calendar.getExist());
-                    current.setRemain(calendar.getRemain());
-                }
+                if (current.getDate() != null) {
+                    if (current.getDate().equals(calendar.getDate())) {
+                        current.setMaximum(calendar.getMaximum());
+                        current.setExist(calendar.getExist());
+                        current.setRemain(calendar.getRemain());
+                    }
+                } else continue;
             }
         }
 
@@ -140,7 +142,8 @@ public class CalendarServiceImpl implements CalendarService {
         for (int i = 1; i <= currentDays; i++) {
             String m = month < 10 ? "0" + month : month + "";
             String d = i < 10 ? "0" + i : i + "";
-            currentCalendar.add(new CalendarResponseDto(year + "-" + m + "-" + d));
+            String test = year + "-" + m + "-" + d;
+            currentCalendar.add(new CalendarResponseDto(test));
         }
 
         return currentCalendar;

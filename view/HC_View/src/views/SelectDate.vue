@@ -3,6 +3,7 @@ import {defineComponent, reactive, toRefs} from 'vue'
 import Footer from "@/components/Footer.vue";
 import router from "@/router";
 import {useRoute} from "vue-router";
+import axios from "axios";
 
 export default defineComponent({
   name: "SelectDate",
@@ -18,15 +19,14 @@ export default defineComponent({
     })
 
     function init() {
-      console.log(state.hpId)
-      axios.post('calendar/getcalendar',{hpId:state.hpId,smId:state.smId,year:state.year,month:state.month})
-      .then((response) => {
-        console.log(response.data)
-        state.calendar = response.data
-      })
-      .catch((error) => {
-      console.log(error)
-      })
+      axios.post('calendar/getcalendar', {hpId: state.hpId, smId: state.smId, year: state.year, month: state.month})
+          .then((response) => {
+            console.log(response.data)
+            state.calendar = response.data
+          })
+          .catch((error) => {
+            console.log(error)
+          })
     }
 
     init()
