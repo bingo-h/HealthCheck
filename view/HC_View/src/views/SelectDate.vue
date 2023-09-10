@@ -33,6 +33,7 @@ export default defineComponent({
             for (let i = 0; i < state.calendar.length; i++) {
               if (state.calendar[i].date != null)
                 state.calendar[i].day = parseInt(state.calendar[i].date.substring(8))
+              state.calendar[i].selected = 0
             }
             console.log(state)
           })
@@ -43,8 +44,16 @@ export default defineComponent({
 
     init()
 
+    function selectDay(day: any) {
+      for (let i = 0; i < state.calendar.length; i++) {
+        state.calendar[i].selected=0
+      }
+      day.selected = 1
+    }
+
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      selectDay
     }
   },
   components: {Footer}
@@ -79,8 +88,9 @@ export default defineComponent({
       </table>
       <ul>
         <li v-for="cd in calendar" :key="cd.date">
-          <p :class="cd.remain!=null && (cd.remain > 0 || cd.day > day) ? 'fontcolor':''">{{ cd.day }}</p>
-          <p>{{ cd.remain != null && cd.remain > 0 ? "余" + cd.remain : "" }}</p>
+          <p :class="{fontcolor:cd.remain!=null && (cd.remain > 0 || cd.day > day), pselect:cd.selected==1}"
+             @click="selectDay(cd)">{{ cd.day }}</p>
+          <p>{{ cd.remain != null && (cd.remain > 0 || cd.day > day) ? "余" + cd.remain : "" }}</p>
         </li>
       </ul>
     </section>
