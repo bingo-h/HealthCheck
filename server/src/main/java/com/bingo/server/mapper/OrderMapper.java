@@ -18,7 +18,7 @@ public interface OrderMapper {
 
 	List<CalendarResponseDto> listOrdersNumber(List<OrderMapperDto> list);
 
-	List<Order> getOrdersByUserId(Integer userId);
+	List<Order> getOrdersByUserId(String userId);
 
 	@Insert("insert into orders(orderDate,userId,hpId,smId,state) values (#{orderDate},#{userId},#{hpId},#{smId},#{state})")
 	Integer saveOrder(Order order);

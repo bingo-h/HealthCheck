@@ -13,9 +13,9 @@ spring:
         password: 12345aB!
         
 # mybatis 配置
-mybatis:
-    mapper-locations: classpath:mapper/*.xml
-    config-location: classpath:mybatis-config.xml
+mybatis-plus:
+    mapperLocations: classpath:mapper/*.xml
+    configLocation: classpath:mybatis-config.xml
 
 # 日志
 logging: 

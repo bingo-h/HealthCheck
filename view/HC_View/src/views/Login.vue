@@ -60,7 +60,7 @@ export default {
             axios.post('user/login', state.user)
                 .then((response) => {
                     //拿到响应数据之后
-                    console.log("响应数据：" + response.data)
+                    console.log(response.data)
                     state.user = response.data;
                     let user = state.user
 

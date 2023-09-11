@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> getOrdersByUserId(Integer userId) {
+	public List<Order> getOrdersByUserId(String userId) {
 		return orderMapper.getOrdersByUserId(userId);
 	}
 

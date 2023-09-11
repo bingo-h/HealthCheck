@@ -9,7 +9,7 @@ public interface OrderService {
 
 	int saveOrder(Order order);
 
-	List<Order> getOrdersByUserId(Integer userId);
+	List<Order> getOrdersByUserId(String userId);
 
     int delOrderById(Integer orderId);
 }

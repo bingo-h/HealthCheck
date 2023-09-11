@@ -16,12 +16,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User login(User user) {
 		// TODO Auto-generated method stub
-		return userMapper.getUsers_ByUserId_ByPassword(user);
+		return userMapper.getUsersByUserIdByPassword(user);
 	}
 
 	@Override
 	public User getUsers_ByUserId(String userId) {
-		return userMapper.getUsers_ByUserId(userId);
+		return userMapper.getUsersByUserId(userId);
 	}
 	
 	@Override
