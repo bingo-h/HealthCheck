@@ -1,15 +1,16 @@
 package com.bingo.server.po;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.ibatis.type.Alias;
 
-@Getter
-@Setter
+@Data
 @Alias("order")
-@TableName("orders")
+@TableName(value = "orders", resultMap = "orderRM")
 public class Order {
 
 	@TableId
@@ -25,7 +26,9 @@ public class Order {
 	
 	private Integer state;
 
+	@TableField(exist = false)
 	private Hospital hospital;
 
+	@TableField(exist = false)
 	private Project project;
 }

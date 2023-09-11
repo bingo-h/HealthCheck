@@ -2,12 +2,12 @@ package com.bingo.server.po;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.ibatis.type.Alias;
 
-@Getter
-@Setter
+@Data
 @Alias("item")
 @TableName("checkitem")
 public class Item {

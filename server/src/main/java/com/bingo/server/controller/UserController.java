@@ -1,5 +1,6 @@
 package com.bingo.server.controller;
 
+import com.bingo.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bingo.server.constance.Constance;
 import com.bingo.server.po.User;
-import com.bingo.server.service.UserService;
 
 @RestController
 @RequestMapping("/user")

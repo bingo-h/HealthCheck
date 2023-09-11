@@ -29,9 +29,6 @@ export default {
     props: ['Footer'],
     setup() {
         const router = useRouter()
-        const state = reactive({
-
-        })
 
         function ToIndex() {
             router.push('/index')

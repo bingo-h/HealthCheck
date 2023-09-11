@@ -1,15 +1,16 @@
 package com.bingo.server.po;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.ibatis.type.Alias;
 
-@Getter
-@Setter
+@Data
 @Alias("projectitem")
-@TableName("setmealdetailed")
+@TableName(value = "setmealdetailed", resultMap = "projectitemRM")
 public class ProjectItem {
 
 	@TableId
@@ -19,5 +20,6 @@ public class ProjectItem {
 	
 	private Integer ciId;
 
+	@TableField(exist = false)
 	private Item item;
 }

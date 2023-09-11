@@ -18,4 +18,6 @@ public interface UserMapper {
     @Insert("insert into users values(#{userId},#{password},#{realName},#{sex},#{identityCard}," +
             "#{birthday},#{userType})")
     int saveUser(User user);
+
+
 }

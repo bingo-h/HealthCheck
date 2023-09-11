@@ -2,11 +2,11 @@ package com.bingo.server.po;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @TableName("checkitemdetailed")
 public class ProjectData {
 
