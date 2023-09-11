@@ -58,6 +58,7 @@ export default defineComponent({
       state.selectedIndex = index
 
       setSessionStorage('date', state.calendar[index].date)
+      setSessionStorage('curDate', date)
     }
 
     function addMonth() {

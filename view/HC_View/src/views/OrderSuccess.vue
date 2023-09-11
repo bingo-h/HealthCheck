@@ -7,20 +7,20 @@ export default defineComponent({
   name: "OrderSuccess",
   components: {Footer},
   setup() {
-    function ViewOrder() {
-
-    }
-
-    function OrderForOthers() {
-      router.push('/order')
-    }
-
     return {
-      ViewOrder,
+      toViewOrders,
       OrderForOthers
     }
   }
 })
+
+export function toViewOrders() {
+  router.push('/vieworders')
+}
+
+export function OrderForOthers() {
+  router.push('/order')
+}
 </script>
 
 <template>
@@ -43,7 +43,7 @@ export default defineComponent({
         <h1>恭喜预约成功！</h1>
         <p>请体检用户携带本人身份证到店认证</p>
       </div>
-      <div class="order-btn" @click="ViewOrder">查看订单</div>
+      <div class="order-btn" @click="toViewOrders">查看订单</div>
       <div class="continue" @click="OrderForOthers">继续为家人预约</div>
       <div class="info">
         <p>您的信息已经发送至体检机构</p>

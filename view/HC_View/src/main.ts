@@ -1,6 +1,6 @@
 import './assets/main.css'
 
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
 import 'font-awesome/css/font-awesome.min.css'
@@ -14,10 +14,11 @@ app.mount('#app')
 router.beforeEach((to, from, next) => {
     let user = sessionStorage.getItem('user');
     if (user != '') {
-        if (to.path == '/' || to.path == '/login' || to.path == '/register' || to.path == '/index' 
-        || to.path == '/order' || to.path == '/viewreport' || to.path == '/me' || to.path == '/hospitals'
-        || to.path == '/selectproject' || to.path == '/selectdate' || to.path == '/orderconfirm' ||
-        to.path == '/ordersuccess') {
+        if (to.path == '/' || to.path == '/login' || to.path == '/register' || to.path == '/index'
+            || to.path == '/order' || to.path == '/viewreport' || to.path == '/me' || to.path == '/hospitals'
+            || to.path == '/selectproject' || to.path == '/selectdate' || to.path == '/orderconfirm' ||
+            to.path == '/ordersuccess' || to.path == '/vieworders' || to.path == '/viewreports' ||
+            to.path == '/ordercancel') {
             next()
         } else {
             router.push('/login')

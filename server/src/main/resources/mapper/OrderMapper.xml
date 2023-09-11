@@ -20,7 +20,7 @@
     <select id="listOrdersNumber" parameterType="OrderMapperDto"
             resultType="CalendarResponseDto">
         <foreach collection="list" item="dto" separator="union">
-            select #{dto.date} Date,count(*) Exist from orders
+            select #{dto.date} as Date,count(*) as Exist from orders
             where orderDate=#{dto.date} and hpId=#{dto.hpId}
         </foreach>
     </select>
@@ -28,5 +28,9 @@
     <select id="listOrdersByUserId" parameterType="order" resultMap="orderRM">
         select * from orders where userId=#{userId} and state=#{state}
         order by orderId desc
+    </select>
+
+    <select id="getOrdersByUserId" resultMap="orderRM">
+        select * from orders where userId=#{userId}
     </select>
 </mapper>

@@ -13,7 +13,7 @@ public class Order {
 	
 	private String orderDate;
 	
-	private String userId;
+	private Integer userId;
 	
 	private Integer hpId;
 	

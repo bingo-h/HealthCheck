@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    props: ['ViewReport'],
+    props: ['ViewReports'],
     setup() {
 
     }

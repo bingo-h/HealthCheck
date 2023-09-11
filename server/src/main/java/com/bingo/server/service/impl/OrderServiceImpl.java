@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.bingo.server.mapper.OrderMapper;
 import com.bingo.server.service.OrderService;
 
+import java.util.List;
+
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -23,6 +25,18 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int saveOrder(Order order) {
 		Integer number = orderMapper.saveOrder(order);
+		if (number == null) number = 0;
+		return number;
+	}
+
+	@Override
+	public List<Order> getOrdersByUserId(Integer userId) {
+		return orderMapper.getOrdersByUserId(userId);
+	}
+
+	@Override
+	public int delOrderById(Integer orderId) {
+		Integer number = orderMapper.delOrderById(orderId);
 		if (number == null) number = 0;
 		return number;
 	}

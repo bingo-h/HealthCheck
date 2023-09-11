@@ -1,7 +1,7 @@
 <script lang="ts">
-import {defineComponent, reactive, toRefs} from 'vue'
+import {defineComponent, reactive, toRaw, toRefs} from 'vue'
 import Footer from "@/components/Footer.vue";
-import {getSessionStorage} from "@/common";
+import {getSessionStorage, setSessionStorage} from "@/common";
 import axios from "axios";
 import orderSuccess from "@/views/OrderSuccess.vue";
 import router from "@/router";
@@ -10,7 +10,6 @@ export default defineComponent({
   name: "OrderConfirm",
   components: {Footer},
   setup() {
-    const date = new Date()
     const state = reactive({
       hpId: getSessionStorage('hpId'),
       smId: getSessionStorage('smId'),
@@ -34,15 +33,17 @@ export default defineComponent({
     }
 
     function orderSuccess() {
-      axios.post('order/save',{orderDate: date,userId:state.user.userId,
-        hpId:state.hpId,smId:state.smId,state:1})
+      axios.post('order/save', {
+        orderDate: state.date, userId: state.user.userId, hpId: state.hpId,
+        smId: state.smId, state: 1
+      })
           .then((response) => {
             console.log(response.data)
             if (response.data > 0) {
               router.push('/ordersuccess')
             }
           }).catch((error) => {
-            console.log(error)
+        console.log(error)
       })
 
     }
@@ -94,7 +95,7 @@ export default defineComponent({
       </div>
       <table>
         <tr>
-          <td>{{ date.split('-')[0] }}年{{date.split('-')[1]}}月{{date.split('-')[2]}}日</td>
+          <td>{{ date.split('-')[0] }}年{{ date.split('-')[1] }}月{{ date.split('-')[2] }}日</td>
         </tr>
       </table>
       <div class="title">
@@ -110,7 +111,7 @@ export default defineComponent({
         </tr>
         <tr>
           <td>采血截止:</td>
-          <td>采血截止时间{{ hospital.deadline }}</td>
+          <td>{{ hospital.deadline }}</td>
         </tr>
         <tr>
           <td>机构电话:</td>
@@ -132,7 +133,7 @@ export default defineComponent({
     </section>
 
     <div class="bottom-btn">
-      <div class="first">实付款: <span>￥{{ user.userType == 2 ? 0:project.price }}</span></div>
+      <div class="first">实付款: <span>￥{{ user.userType == 2 ? 0 : project.price }}</span></div>
       <div class="last" @click="orderSuccess">确认支付</div>
     </div>
 

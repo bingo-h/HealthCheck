@@ -37,4 +37,9 @@ public class UserController {
 		return userservice.register(user);
 	}
 
+	@RequestMapping("/get")
+	public User getUsers_ByUserId(@RequestBody User user) {
+		return userservice.getUsers_ByUserId(user.getUserId());
+	}
+
 }
