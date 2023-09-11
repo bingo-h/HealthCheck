@@ -12,4 +12,5 @@
     <mappers>
         <package name="com.bingo.server.mapper"/>
     </mappers>
+
 </configuration>

@@ -5,8 +5,7 @@ import lombok.*;
 /**
  * 生成不同对象的个性化日历
  */
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class CalendarResponseDto {
