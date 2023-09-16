@@ -37,6 +37,8 @@ npm run build
 ```
 
 ### 文件结构
+
+```
 HC_View
     |
     |--public
@@ -46,5 +48,5 @@ HC_View
     |--src：网页源码
     |   |
     |   |--components：共通组件
-
+```
 
