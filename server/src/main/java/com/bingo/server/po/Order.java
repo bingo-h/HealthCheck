@@ -1,5 +1,6 @@
 package com.bingo.server.po;
 
+import com.baomidou.mybatisplus.annotation.OrderBy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -14,6 +15,7 @@ import org.apache.ibatis.type.Alias;
 public class Order {
 
 	@TableId
+	@OrderBy
 	private Integer orderId;
 	
 	private String orderDate;

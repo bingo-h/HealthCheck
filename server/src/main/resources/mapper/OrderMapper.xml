@@ -12,9 +12,9 @@
         <result property="smId" column="smId"/>
         <result property="state" column="state"/>
         <association property="hospital" column="hpId" javaType="hospital"
-                     select="com.bingo.server.mapper.HospitalMapper.getHospitalById"/>
+                     select="com.bingo.server.mapper.HospitalMapper.selectById"/>
         <association property="project" column="smId" javaType="project"
-                     select="com.bingo.server.mapper.ProjectMapper.getProjectById"/>
+                     select="com.bingo.server.mapper.ProjectMapper.selectById"/>
     </resultMap>
 
     <select id="listOrdersNumber" parameterType="OrderMapperDto"
@@ -23,14 +23,5 @@
             select #{dto.date} as Date,count(*) as Exist from orders
             where orderDate=#{dto.date} and hpId=#{dto.hpId}
         </foreach>
-    </select>
-
-    <select id="listOrdersByUserId" parameterType="order" resultMap="orderRM">
-        select * from orders where userId=#{userId} and state=#{state}
-        order by orderId desc
-    </select>
-
-    <select id="getOrdersByUserId" resultMap="orderRM">
-        select * from orders where userId=#{userId}
     </select>
 </mapper>

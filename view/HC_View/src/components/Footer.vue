@@ -13,7 +13,7 @@
                 <i class="fa fa-compass"></i>
                 <p>发现</p>
             </li>
-            <li @click="Me">
+            <li @click="toPersonal">
                 <i class="fa fa-user"></i>
                 <p>我</p>
             </li>
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import { reactive, toRefs, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default {
@@ -34,13 +33,13 @@ export default {
             router.push('/index')
         }
 
-        function Me() {
-            router.push('/me')
+        function toPersonal() {
+            router.push('/personal')
         }
 
         return {
             ToIndex,
-            Me
+            toPersonal
         }
     }
 }

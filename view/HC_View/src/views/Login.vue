@@ -21,7 +21,6 @@
 </template>
  
 <script lang="ts">
-import Footer from '@/components/Footer.vue'
 
 //导入需要的基本工具
 import { reactive, toRefs } from 'vue'

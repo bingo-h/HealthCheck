@@ -13,8 +13,4 @@
                     select="com.bingo.server.mapper.ProjectItemMapper.getItemsByProjectId"
                     column="smId"/>
     </resultMap>
-
-    <select id="getProjectsByType" resultMap="selectprojectRM">
-        select * from setmeal where type=#{type} order by smId
-    </select>
 </mapper>

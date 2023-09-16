@@ -3,7 +3,6 @@ import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import Index from '@/views/Index.vue'
 import Order from '@/views/Order.vue'
-import Me from '@/views/Me.vue'
 import Hospitals from '@/views/Hospitals.vue'
 import SelectProject from "@/views/SelectProject.vue";
 import SelectDate from "@/views/SelectDate.vue";
@@ -11,7 +10,7 @@ import OrderConfirm from "@/views/OrderConfirm.vue";
 import OrderSuccess from "@/views/OrderSuccess.vue";
 import ViewOrders from "@/views/ViewOrders.vue";
 import ViewReports from "@/views/ViewReports.vue";
-import OrderCancel from "@/views/OrderCancel.vue";
+import Personal from "@/views/Personal.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -42,9 +41,9 @@ const router = createRouter({
             component: Order
         },
         {
-            path: '/me',
-            name: 'Me',
-            component: Me
+            path: '/personal',
+            name: 'Personal',
+            component: Personal
         },
         {
             path: '/hospitals',
@@ -70,11 +69,6 @@ const router = createRouter({
             path: '/ordersuccess',
             name: 'OrderSuccess',
             component: OrderSuccess
-        },
-        {
-            path: '/ordercancel',
-            name: 'OrderCancel',
-            component: OrderCancel
         },
         {
             path: '/vieworders',
