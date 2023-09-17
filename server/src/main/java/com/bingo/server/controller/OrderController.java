@@ -1,9 +1,8 @@
 package com.bingo.server.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bingo.server.mapper.OrderMapper;
 import com.bingo.server.po.Order;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +21,7 @@ import java.util.Map;
 @RequestMapping("/order")
 public class OrderController {
 
-    @Autowired
+    @Resource
     private OrderMapper orderMapper;
 
     private final Map<String, Object> map = new HashMap<>();

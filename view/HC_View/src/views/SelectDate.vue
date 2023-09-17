@@ -34,6 +34,7 @@ export default defineComponent({
             for (let i = 0; i < state.calendar.length; i++) {
               if (state.calendar[i].date != null)
                 state.calendar[i].day = parseInt(state.calendar[i].date.substring(8))
+
               state.calendar[i].selected = 0
             }
             console.log(state)
@@ -58,7 +59,6 @@ export default defineComponent({
       state.selectedIndex = index
 
       setSessionStorage('date', state.calendar[index].date)
-      setSessionStorage('curDate', date)
     }
 
     function addMonth() {

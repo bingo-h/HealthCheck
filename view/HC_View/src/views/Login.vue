@@ -1,206 +1,216 @@
 <template>
-    <!-- 总容器 -->
-    <div class="wrapper">
-        <h1>体检预约-登录</h1>
-        <section>
-            <div class="input-box">
-                <i class="fa fa-user-o"></i>
-                <input type="text" v-model="user.userId" placeholder="输入手机号">
-            </div>
-            <div class="input-box">
-                <i class="fa fa-lock"></i>
-                <input type="password" v-model="user.password" placeholder="输入登录密码">
-            </div>
-            <div class="reg-box" @click="toRegister">
-                <p>注册</p>
-                <p>忘记密码？</p>
-            </div>
-            <div class="button-box" @click="login">登录</div>
-        </section>
-    </div>
+  <!-- 总容器 -->
+  <div class="wrapper">
+    <h1>体检预约-登录</h1>
+    <section>
+      <div class="input-box">
+        <i class="fa fa-user-o"></i>
+        <input type="text" v-model.trim="user.userId" placeholder="输入手机号">
+      </div>
+      <div class="input-box">
+        <i class="fa fa-lock"></i>
+        <input type="password" v-model.trim="user.password" placeholder="输入登录密码">
+      </div>
+      <div class="reg-box" @click="toRegister">
+        <p>注册</p>
+        <p>忘记密码？</p>
+      </div>
+      <div class="button-box" @click="login">登录</div>
+    </section>
+  </div>
 </template>
- 
+
 <script lang="ts">
 
 //导入需要的基本工具
-import { reactive, toRefs } from 'vue'
-import { useRouter } from 'vue-router'
-import { setSessionStorage } from '@/common';
+import {reactive, toRefs} from 'vue'
+import {useRouter} from 'vue-router'
+import {setSessionStorage} from '@/common';
 import axios from 'axios'
+import {checkNumber, checkPassword} from "@/check";
+
 axios.defaults.baseURL = 'http://localhost:8080/hc'
 
 
 export default {
-    props: ['Login'],
-    setup() {
-        //声明需要的数据变量
-        const router = useRouter();
-        const state = reactive({
-            user: {}
-        });
+  props: ['Login'],
+  setup() {
+    //声明需要的数据变量
+    const router = useRouter();
+    const state = reactive({
+      user: {}
+    });
 
-        //定义需要的函数
-        function login() {
-            console.log(state.user.userId + "," + state.user.password)
+    //定义需要的函数
+    function login() {
 
-            //1.数据的非空校验
-            if (state.user.userId == '') {
-                alert('手机号码不能为空');
-                return;
+      //1.数据的非空校验
+      if (state.user.userId == '') {
+        alert('手机号码不能为空');
+        return;
+      }
+
+      if (state.user.password == '') {
+        alert('密码不能为空');
+        return;
+      }
+
+      if (!checkNumber(state.user.userId)) {
+        state.user.userId = ''
+        return;
+      }
+
+      if (!checkPassword(state.user.password)) {
+        state.user.password = ''
+        return;
+      }
+
+      console.log('flag hello')
+      //2.访问服务端接口，获取用户信息
+      axios.post('user/login', state.user)
+          .then((response) => {
+            //拿到响应数据之后
+            console.log(response.data)
+            state.user = response.data;
+            let user = state.user
+
+            if (user != '') {
+              //放入浏览器端的session数据存储域
+              setSessionStorage('user', user);
+              console.log("跳转到index中")
+              router.push('/index');
+            } else {
+              alert('手机号或者密码错误');
             }
-
-            if (state.user.password == '') {
-                alert('密码不能为空');
-                return;
-            }
-
-            console.log('flag hello')
-            //2.访问服务端接口，获取用户信息
-            axios.post('user/login', state.user)
-                .then((response) => {
-                    //拿到响应数据之后
-                    console.log(response.data)
-                    state.user = response.data;
-                    let user = state.user
-
-                    if (user != '') {
-                        //放入浏览器端的session数据存储域
-                        setSessionStorage('user', user);
-                        console.log("跳转到index中")
-                        router.push('/index');
-                    } else {
-                        alert('手机号或者密码错误');
-                    }
-                }).catch((error) => {
-                    //出错之后
-                    console.log(error)
-                });
-        }
-
-
-        function toRegister() {
-            router.push('/register')
-        }
-
-        //把数据和函数暴露出去，不然，html访问不到
-        return {
-            ...toRefs(state),
-            login,
-            toRegister
-        }
+          }).catch((error) => {
+        //出错之后
+        console.log(error)
+      });
     }
+
+
+    function toRegister() {
+      router.push('/register')
+    }
+
+    //把数据和函数暴露出去，不然，html访问不到
+    return {
+      ...toRefs(state),
+      login,
+      toRegister
+    }
+  }
 }
 </script>
- 
- 
- 
+
+
 <style scoped>
 /*********************** 总容器 ***********************/
 .wrapper {
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(45deg, #266C9F, #266C9F, #7EB059);
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(45deg, #266C9F, #266C9F, #7EB059);
+  overflow: hidden;
 }
 
 /*********************** 标题部分 ***********************/
 h1 {
-    text-align: center;
-    color: #FFF;
-    font-size: 9.5vw;
-    font-weight: 500;
-    margin-top: 13vh;
-    margin-bottom: 3vh;
+  text-align: center;
+  color: #FFF;
+  font-size: 9.5vw;
+  font-weight: 500;
+  margin-top: 13vh;
+  margin-bottom: 3vh;
 }
 
 /*********************** 内容部分 ***********************/
 section {
-    width: 86vw;
-    margin: 0 auto;
-    background-color: #FFF;
-    border-radius: 2.4vw;
+  width: 86vw;
+  margin: 0 auto;
+  background-color: #FFF;
+  border-radius: 2.4vw;
 
-    box-sizing: border-box;
-    padding: 6vw;
+  box-sizing: border-box;
+  padding: 6vw;
 }
 
 section .input-box {
-    width: 100%;
-    height: 12vw;
-    border: solid 1px #CCC;
-    border-radius: 2vw;
-    margin-top: 5vw;
+  width: 100%;
+  height: 12vw;
+  border: solid 1px #CCC;
+  border-radius: 2vw;
+  margin-top: 5vw;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 section .input-box i {
-    margin: 0 3.6vw;
-    font-size: 5.4vw;
-    color: #CCC;
+  margin: 0 3.6vw;
+  font-size: 5.4vw;
+  color: #CCC;
 }
 
 section .input-box input {
-    border: none;
-    outline: none;
+  border: none;
+  outline: none;
 }
 
 section .reg-box {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5vw;
-    margin-bottom: 2vw;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5vw;
+  margin-bottom: 2vw;
 }
 
 section .reg-box p {
-    font-size: 3.3vw;
-    color: #2D727E;
-    user-select: none;
-    cursor: pointer;
+  font-size: 3.3vw;
+  color: #2D727E;
+  user-select: none;
+  cursor: pointer;
 }
 
 section .button-box {
-    width: 100%;
-    height: 13vw;
-    border-radius: 2vw;
-    background-color: #70B0BC;
+  width: 100%;
+  height: 13vw;
+  border-radius: 2vw;
+  background-color: #70B0BC;
 
-    text-align: center;
-    line-height: 13vw;
-    font-size: 4.6vw;
-    color: #FFF;
-    letter-spacing: 1vw;
+  text-align: center;
+  line-height: 13vw;
+  font-size: 4.6vw;
+  color: #FFF;
+  letter-spacing: 1vw;
 
-    user-select: none;
-    cursor: pointer;
+  user-select: none;
+  cursor: pointer;
 }
 
 /*********************** footer部分 ***********************/
 footer {
-    width: 86vw;
-    margin: 0 auto;
-    margin-top: 12vw;
-    font-size: 3.8vw;
-    color: #FFF;
+  width: 86vw;
+  margin: 0 auto;
+  margin-top: 12vw;
+  font-size: 3.8vw;
+  color: #FFF;
 }
 
 footer div {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 footer div .line {
-    width: 22vw;
-    height: 1px;
-    background-color: #FFF;
+  width: 22vw;
+  height: 1px;
+  background-color: #FFF;
 }
 
-footer>p {
-    text-align: center;
-    margin-top: 2vw;
+footer > p {
+  text-align: center;
+  margin-top: 2vw;
 }
 </style>

@@ -2,7 +2,7 @@ package com.bingo.server.controller;
 
 import com.bingo.server.mapper.ProjectMapper;
 import com.bingo.server.po.Project;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping("/project")
 public class ProjectController {
 
-    @Autowired
+    @Resource
     private ProjectMapper projectMapper;
 
     private final Map<String, Object> map = new HashMap<>();

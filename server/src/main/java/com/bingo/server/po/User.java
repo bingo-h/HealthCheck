@@ -18,10 +18,11 @@ public class User {
 	private String realName;
 	
 	private Integer sex;
-	
+
 	private String identityCard;
 	
 	private String birthday;
 	
 	private Integer userType;
+
 }

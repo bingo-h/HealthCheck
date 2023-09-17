@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bingo.server.mapper.HospitalMapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +16,7 @@ import com.bingo.server.po.Hospital;
 @RequestMapping("/hospital")
 public class HospitalController {
 	
-	@Autowired
+	@Resource
 	private HospitalMapper hospitalMapper;
 	
 	@RequestMapping("/state")

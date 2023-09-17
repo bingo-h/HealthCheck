@@ -3,7 +3,7 @@ import {defineComponent, reactive, toRefs} from 'vue'
 import Footer from "@/components/Footer.vue";
 import {toViewOrders} from "@/views/OrderSuccess.vue";
 import router from "@/router";
-import {getSessionStorage} from "@/common";
+import {getSessionStorage, removeSessionStorage} from "@/common";
 
 export default defineComponent({
   name: "Personal",
@@ -16,7 +16,11 @@ export default defineComponent({
     })
 
     function toLogin() {
-      router.push('/login')
+      let yon = confirm("确认退出？")
+      if (yon) {
+        removeSessionStorage('user')
+        router.push('/login')
+      }
     }
 
     return {

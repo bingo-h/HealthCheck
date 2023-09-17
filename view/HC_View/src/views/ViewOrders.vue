@@ -65,7 +65,7 @@ export default defineComponent({
           <p>{{ order.orderDate }}</p>
           <p>{{ order.project.name }}</p>
         </div>
-        <div v-if="order.orderDate > date" class="right" @click="OrderCancel(order)">
+        <div v-if="order.state == 1" class="right" @click="OrderCancel(order)">
           取消预约
         </div>
       </li>
