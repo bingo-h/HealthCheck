@@ -8,13 +8,13 @@ import java.util.Random;
 
 public class AesUtils {
 
+    private static final byte[] key = "afDeffjlj0343jjF".getBytes();
+
     private static final Base64.Encoder encoder = Base64.getEncoder();
 
     public static final Base64.Decoder decoder = Base64.getDecoder();
 
-    public static String encrypt(String content, String keyStr) {
-
-        byte[] key = keyStr.getBytes();
+    public static String encrypt(String content) {
 
         SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
 
@@ -30,8 +30,7 @@ public class AesUtils {
         }
     }
 
-    public static String decrypt(String content, String keyStr) {
-        byte[] key = keyStr.getBytes();
+    public static String decrypt(String content) {
         SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
 
         try {
