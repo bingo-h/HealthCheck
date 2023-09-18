@@ -2,6 +2,7 @@ package com.bingo.server.po;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
@@ -24,5 +25,7 @@ public class User {
 	private String birthday;
 	
 	private Integer userType;
+
+	private String salt;
 
 }

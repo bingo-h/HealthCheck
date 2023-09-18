@@ -14,7 +14,5 @@ import java.util.List;
 
 @Repository
 public interface OrderMapper extends BaseMapper<Order> {
-
 	List<CalendarResponseDto> listOrdersNumber(List<OrderMapperDto> list);
-
 }

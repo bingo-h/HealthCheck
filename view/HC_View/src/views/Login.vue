@@ -11,12 +11,21 @@
         <i class="fa fa-lock"></i>
         <input type="password" v-model.trim="user.password" placeholder="输入登录密码">
       </div>
-      <div class="reg-box" @click="toRegister">
-        <p>注册</p>
-        <p>忘记密码？</p>
+      <div class="reg-box">
+        <p @click="toRegister">注册</p>
+        <p @click="toReset">忘记密码？</p>
       </div>
       <div class="button-box" @click="login">登录</div>
     </section>
+
+    <footer>
+      <div>
+        <div class="line"></div>
+        <p>有疑问请联系客服</p>
+        <div class="line"></div>
+      </div>
+      <p>4008-XXX-XXX</p>
+    </footer>
   </div>
 </template>
 
@@ -93,11 +102,16 @@ export default {
       router.push('/register')
     }
 
+    function toReset() {
+      router.push('/resetpassword')
+    }
+
     //把数据和函数暴露出去，不然，html访问不到
     return {
       ...toRefs(state),
       login,
-      toRegister
+      toRegister,
+      toReset
     }
   }
 }

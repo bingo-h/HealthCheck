@@ -1,0 +1,173 @@
+<script lang="ts">
+import {defineComponent, reactive, toRaw, toRefs} from 'vue'
+import axios from "axios";
+import {checkIdCard, checkPassword} from "@/check";
+import router from "@/router";
+
+export default defineComponent({
+  name: "ResetPassword",
+  setup(props, ctx) {
+    const state = reactive({
+      user: [],
+      confirmPassword: ''
+    })
+
+    function reset() {
+      if (state.user.identityCard == '') {
+        alert('身份证号不能为空');
+        return;
+      }
+      if (!checkIdCard(state.user.identityCard)) {
+        state.user.identityCard = ''
+        return;
+      }
+      if (state.user.password == '') {
+        alert('密码不能为空');
+        return;
+      }
+      if (!checkPassword(state.user.password)) {
+        return;
+      }
+      if (state.confirmPassword != state.user.password) {
+        alert('两次输入密码不一致');
+        return;
+      }
+
+      console.log(state.user)
+      axios.post('user/reset', {identityCard: state.user.identityCard, password: state.user.password})
+          .then((response) => {
+            console.log("Flag!!!!!!!!!!!!!")
+            if (response.data > 0) {
+              alert("修改成功，请登录")
+              router.push('/login')
+            }
+            else if (response.data < 0) {
+              alert("密码不能和之前的相同")
+              return
+            }
+            else {
+              alert("修改失败，不存在该身份证号")
+              return;
+            }
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+    }
+
+    return {
+      ...toRefs(state),
+      reset
+    }
+  },
+})
+</script>
+
+<template>
+  <div class="wrapper">
+    <header>
+      <i class="fa fa-angle-left" onclick="history.go(-1)"></i>
+      <p>密码重置</p>
+      <div></div>
+    </header>
+    <div class="top-ban"></div>
+    <h1>密码重置</h1>
+    <table>
+      <tr>
+        <td>身份证号</td>
+        <td><input type="text" v-model.trim="user.identityCard" placeholder="请输入身份证号"></td>
+      </tr>
+      <tr>
+        <td>密码</td>
+        <td><input type="password" v-model.trim="user.password" placeholder="请输入新密码"></td>
+      </tr>
+      <tr>
+        <td>确认密码</td>
+        <td><input type="password" v-model.trim="confirmPassword" placeholder="请再次输入密码"></td>
+      </tr>
+    </table>
+    <div class="btn" @click="reset">完成</div>
+  </div>
+</template>
+
+<style scoped>
+/*********************** 总容器 ***********************/
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+/*********************** header ***********************/
+header {
+  width: 100%;
+  height: 15.7vw;
+  background-color: #FFF;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+  padding: 0 3.6vw;
+}
+
+header .fa {
+  font-size: 8vw;
+}
+
+/*********************** 标题部分 ***********************/
+h1 {
+  font-size: 7.4vw;
+  font-weight: 500;
+  box-sizing: border-box;
+  padding: 0 3.6vw;
+  margin-top: 6vw;
+}
+
+/*********************** common样式 ***********************/
+.top-ban {
+  width: 100%;
+  height: 15.7vw;
+}
+
+/*********************** table ***********************/
+table {
+  width: 92.8vw;
+  margin: 0 auto;
+  margin-top: 5vw;
+  border-collapse: collapse;
+
+  font-size: 4.2vw;
+}
+
+table tr td {
+  height: 12vw;
+  border-bottom: solid 1px #DDD;
+}
+
+table tr td input {
+  border: none;
+  outline: none;
+}
+
+/*********************** btn ***********************/
+.btn {
+  width: 92.8vw;
+  margin: 0 auto;
+  height: 12vw;
+  margin-top: 8vw;
+  background-color: #137E92;
+  border-radius: 2vw;
+  color: #FFF;
+  font-size: 5vw;
+  text-align: center;
+  line-height: 12vw;
+
+  user-select: none;
+  cursor: pointer;
+}
+</style>
