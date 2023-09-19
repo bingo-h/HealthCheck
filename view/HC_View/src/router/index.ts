@@ -12,6 +12,7 @@ import ViewOrders from "@/views/ViewOrders.vue";
 import ViewReports from "@/views/ViewReports.vue";
 import Personal from "@/views/Personal.vue";
 import Report from "@/views/Report.vue";
+import ResetPassword from "@/views/ResetPassword.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -85,8 +86,15 @@ const router = createRouter({
             path: '/report',
             name: 'Report',
             component: Report
+        },
+        {
+            path: '/resetpassword',
+            name: 'ResetPassword',
+            component: ResetPassword
         }
     ]
 })
+
+
 
 export default router

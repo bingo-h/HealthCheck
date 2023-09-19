@@ -72,7 +72,7 @@
       </div>
       <div class="report-content">
         <p>随时随地查看体检报告</p>
-        <div @click="toViewReport">立即查看</div>
+        <div @click="toViewReports">立即查看</div>
       </div>
     </div>
 
@@ -228,7 +228,7 @@ export default {
     return {
       scrollBarRef,
       scrollBoxRef,
-      toViewReport,
+      toViewReports,
       toOrder
     }
   },
@@ -241,8 +241,8 @@ export function toOrder() {
   router.push('/order')
 }
 
-export function toViewReport() {
-  router.push('/viewreport')
+export function toViewReports() {
+  router.push('/viewreports')
 }
 
 </script>

@@ -1,6 +1,4 @@
 export function checkNumber(keyStr: any) {
-    console.log(keyStr)
-
     let reg = RegExp(/^[0-9]*$/)
 
     if (!reg.test(keyStr)) {

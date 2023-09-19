@@ -1,8 +1,6 @@
-package com.bingo.server.Utils;
+package com.bingo.server.utils;
 
 import org.springframework.util.DigestUtils;
-
-import java.util.UUID;
 
 public class Md5Utils {
 

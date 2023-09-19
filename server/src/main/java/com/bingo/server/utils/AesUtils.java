@@ -1,4 +1,4 @@
-package com.bingo.server.Utils;
+package com.bingo.server.utils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;

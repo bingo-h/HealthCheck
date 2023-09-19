@@ -11,11 +11,16 @@
         <i class="fa fa-lock"></i>
         <input type="password" v-model.trim="user.password" placeholder="输入登录密码">
       </div>
+      <div class="input-box">
+        <i class="fa-solid fa-paper-plane"></i>
+        <input type="text" v-model.trim="verifyCode" placeholder="输入验证码">
+        <img :src="imgUrl" @click="resetImage" alt=""/>
+      </div>
       <div class="reg-box">
         <p @click="toRegister">注册</p>
         <p @click="toReset">忘记密码？</p>
       </div>
-      <div class="button-box" @click="login">登录</div>
+      <div class="button-box" @click="verify">登录</div>
     </section>
 
     <footer>
@@ -34,12 +39,9 @@
 //导入需要的基本工具
 import {reactive, toRefs} from 'vue'
 import {useRouter} from 'vue-router'
-import {setSessionStorage} from '@/common';
+import {getSessionStorage, setSessionStorage} from '@/common';
 import axios from 'axios'
 import {checkNumber, checkPassword} from "@/check";
-
-axios.defaults.baseURL = 'http://localhost:8080/hc'
-
 
 export default {
   props: ['Login'],
@@ -47,12 +49,12 @@ export default {
     //声明需要的数据变量
     const router = useRouter();
     const state = reactive({
-      user: {}
+      user: {},
+      imgUrl: "http://localhost:8080/hc/user/verifycode?time=" + new Date(),
+      verifyCode: ''
     });
 
-    //定义需要的函数
-    function login() {
-
+    function verify() {
       //1.数据的非空校验
       if (state.user.userId == '') {
         alert('手机号码不能为空');
@@ -74,29 +76,46 @@ export default {
         return;
       }
 
-      console.log('flag hello')
+      if (state.verifyCode == '') {
+        alert("验证码不能为空")
+        return
+      }
+
+      axios.post('user/verify', state.verifyCode)
+          .then((response) => {
+            if (!response.data) {
+              alert("验证码输入错误")
+              state.verifyCode = ''
+            } else {
+              login()
+            }
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+    }
+
+    //定义需要的函数
+    function login() {
       //2.访问服务端接口，获取用户信息
       axios.post('user/login', state.user)
           .then((response) => {
             //拿到响应数据之后
             console.log(response.data)
-            state.user = response.data;
-            let user = state.user
+            state.user = response.data.user;
+            setSessionStorage("token", response.data.token)
 
-            if (user != '') {
+            if (state.user != '') {
               //放入浏览器端的session数据存储域
-              setSessionStorage('user', user);
-              console.log("跳转到index中")
+              setSessionStorage('user', state.user);
               router.push('/index');
             } else {
               alert('手机号或者密码错误');
             }
           }).catch((error) => {
-        //出错之后
         console.log(error)
       });
     }
-
 
     function toRegister() {
       router.push('/register')
@@ -106,12 +125,17 @@ export default {
       router.push('/resetpassword')
     }
 
+    function resetImage() {
+      state.imgUrl = "http://localhost:8080/hc/user/verifycode?time=" + new Date()
+    }
+
     //把数据和函数暴露出去，不然，html访问不到
     return {
       ...toRefs(state),
-      login,
+      verify,
       toRegister,
-      toReset
+      toReset,
+      resetImage
     }
   }
 }

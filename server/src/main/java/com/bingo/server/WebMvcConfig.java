@@ -1,7 +1,9 @@
 package com.bingo.server;
 
+import com.bingo.server.interceptor.JwtInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -15,10 +17,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
          * allowedHeaders：允许的请求header，可以自定义设置任意请求头信息。
          * maxAge：配置预检请求的有效时间
          */
+        System.out.println("CorsMapping");
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOrigins("http://localhost:5173")
                 .allowedMethods("*")
                 .allowedHeaders("*")
+                .allowCredentials(true)
                 .maxAge(36000);
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        System.out.println("Interceptors");
+        registry.addInterceptor(new JwtInterceptor()).excludePathPatterns("/user/verify*", "/user/login").addPathPatterns("/**");
     }
 }
