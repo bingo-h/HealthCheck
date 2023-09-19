@@ -18,7 +18,7 @@ router.beforeEach((to, from, next) => {
             || to.path == '/order' || to.path == '/viewreport' || to.path == '/personal' || to.path == '/hospitals'
             || to.path == '/selectproject' || to.path == '/selectdate' || to.path == '/orderconfirm' ||
             to.path == '/ordersuccess' || to.path == '/vieworders' || to.path == '/viewreports' ||
-            to.path == '/ordercancel' || to.path == '/resetpassword') {
+            to.path == '/ordercancel' || to.path == '/report') {
             next()
         } else {
             router.push('/login')

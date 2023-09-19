@@ -11,7 +11,7 @@ import OrderSuccess from "@/views/OrderSuccess.vue";
 import ViewOrders from "@/views/ViewOrders.vue";
 import ViewReports from "@/views/ViewReports.vue";
 import Personal from "@/views/Personal.vue";
-import ResetPassword from "@/views/ResetPassword.vue";
+import Report from "@/views/Report.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -82,9 +82,9 @@ const router = createRouter({
             component: ViewReports
         },
         {
-            path: '/resetpassword',
-            name: 'ResetPassword',
-            component: ResetPassword
+            path: '/report',
+            name: 'Report',
+            component: Report
         }
     ]
 })
