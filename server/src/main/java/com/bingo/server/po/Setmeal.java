@@ -4,22 +4,25 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.ibatis.type.Alias;
 
+import java.util.List;
+
 @Data
-@Alias("projectitem")
-@TableName(value = "setmealdetailed", resultMap = "projectitemRM")
-public class ProjectItem {
+@Alias("Setmeal")
+@TableName(value = "setmeal", resultMap = "setmealRM")
+public class Setmeal {
 
 	@TableId
-	private Integer sdId;
-	
 	private Integer smId;
 	
-	private Integer ciId;
+	private String name;
+	
+	private Integer type;
+	
+	private Integer price;
 
 	@TableField(exist = false)
-	private Item item;
+	private List<Item> itemList;
+
 }

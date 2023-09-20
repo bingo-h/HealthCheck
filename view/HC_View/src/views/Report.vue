@@ -1,8 +1,69 @@
 <script lang="ts">
-import {defineComponent} from 'vue'
+import {defineComponent, reactive, toRaw, toRefs} from 'vue'
+import axios from "axios";
+import {getSessionStorage} from "@/common";
+import Footer from "@/components/Footer.vue";
 
 export default defineComponent({
-  name: "Report"
+  name: "Report",
+  components: {Footer},
+  setup() {
+    const state = reactive({
+      reports: [],
+      details: [],
+      errors: [],
+      overall: [],
+      divVisible: 'general',
+      orderId: getSessionStorage('orderId')
+    })
+
+    init()
+
+    function init() {
+      console.log(state.orderId)
+      axios.post('report/get', state.orderId)
+          .then(response => {
+                console.log("report: " + response.data)
+                state.reports = response.data
+              }
+          )
+          .catch(error => {
+            console.log(error)
+          })
+
+      axios.post('report/getdetail', state.orderId)
+          .then(response => {
+            state.details = response.data
+            console.log("details: " + state.details)
+            for (let i = 0; i < state.details.length; i++) {
+              if (state.details[i].isError == 1) state.errors.push(state.details[i])
+            }
+
+            console.log("error: " + state.errors)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+
+      axios.post('report/getoverall', state.orderId)
+          .then(response => {
+            console.log("overall: " + response.data)
+            state.overall = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    }
+
+    function navEvent(str: any) {
+      state.divVisible = str;
+    }
+
+    return {
+      ...toRefs(state),
+      navEvent
+    }
+  }
 })
 </script>
 
@@ -16,37 +77,25 @@ export default defineComponent({
     </header>
 
     <nav>
-      <div class="active">总检结论</div>
-      <div>报告详情</div>
+      <div :class="{active: divVisible == 'general'}" @click="navEvent('general')">总检结论</div>
+      <div :class="{active: divVisible == 'detail'}" @click="navEvent('detail')">报告详情</div>
     </nav>
 
     <div class="top-ban"></div>
 
-    <div class="nav-content-item">
+    <div class="nav-content-item" v-if="divVisible == 'general'">
       <div class="item">
         <div class="title">异常项</div>
         <ul>
-          <li>
+          <li v-for="error in errors">
             <div class="indications">
               <div class="left">
                 <div>异</div>
-                <p>收缩压</p>
+                <p>{{ error.name }}</p>
               </div>
               <div class="right">
-                <p>149</p>
-                <p>正常值范围：&lt;140</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="indications">
-              <div class="left">
-                <div>异</div>
-                <p>白细胞计数</p>
-              </div>
-              <div class="right">
-                <p>3.56 10^9/L</p>
-                <p>正常值范围：4-10</p>
+                <p>{{ error.value }}</p>
+                <p>正常值范围：&lt;{{ error.maxrange }}</p>
               </div>
             </div>
           </li>
@@ -55,219 +104,35 @@ export default defineComponent({
       <div class="item">
         <div class="title">一、尊敬的顾客，您本次体检结论如下：</div>
         <ul>
-          <li class="conclusion-title">1、超重</li>
-          <li class="conclusion-title">2、血压增高</li>
-          <li class="conclusion-title">3、血常规异常</li>
+          <li class="conclusion-title" v-for="(result,index) in overall">{{ (index + 1) + "、" + result.title }}</li>
         </ul>
       </div>
       <div class="item">
         <div class="title">二、尊敬的顾客，您本次体检建议信息日下：</div>
         <ul>
-          <li class="conclusion-content">
-            <h3>1、超重</h3>
+          <li class="conclusion-content" v-for="(result,index) in overall">
+            <h3>{{ (index + 1) + "、" + result.title }}</h3>
             <p>
-              您的体重指标属超重。体内脂肪过度增加，使体重超过正常范围，可引起高血压、高血脂、糖尿病、冠心病以及免疫功能降低等并发症。
-              建议: 合理膳食，以低盐、低脂、高纤维为原则；三餐定时，不吃零食；根据自身情况适量运动，以消耗体内脂肪，维持正常体重。
-            </p>
-          </li>
-          <li class="conclusion-content">
-            <h3>2、血压增高</h3>
-            <p>
-              此次检测血压增高，已经达到高血压的诊断标准，建议就诊心血管内科进一步明确高血压诊断，积极控制好血压。低盐、低脂、低胆固醇饮食。
-              戒烟酒，避免情绪激动，长期过度紧张工作或劳累，保存心境平和，保证充足睡眠。定期到医院系统复查，预防并发症。
-            </p>
-          </li>
-          <li class="conclusion-content">
-            <h3>3、血常规异常</h3>
-            <p>
-              此次检测白细胞减少，将会导致免疫功能的下降。建议就诊做进一步诊断。
-              同时注意：胆固醇高不要吃油的，甜的，多吃水果和蔬菜，多吃富含蛋白质的食物，如牛奶和豆奶。注意锻炼，坚持每天三次，超过10分钟，中等强度，每周锻炼不少于5次。
+              {{ result.content }}
             </p>
           </li>
         </ul>
       </div>
     </div>
 
-    <div class="nav-content-item">
-      <div class="item">
-        <div class="title">一般检测</div>
+    <div class="nav-content-item" v-if="divVisible == 'detail'">
+      <div class="item" v-for="report in reports">
+        <div class="title">{{ report.ciName }}</div>
         <ul>
-          <li>
+          <li v-for="detail in details">
             <div class="indications">
               <div class="left">
                 <div>异</div>
-                <p>收缩压</p>
+                <p>{{ detail.name }}</p>
               </div>
               <div class="right">
-                <p>149</p>
-                <p>正常值范围：&lt;140</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="indications">
-              <div class="left">
-                <p>舒张压</p>
-              </div>
-              <div class="right">
-                <p>90</p>
-                <p>正常值范围：&lt;90</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="indications">
-              <div class="left">
-                <p>身高</p>
-              </div>
-              <div class="right">
-                <p>177.00 cm</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="indications">
-              <div class="left">
-                <p>体重</p>
-              </div>
-              <div class="right">
-                <p>80 kg</p>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="item">
-        <div class="title">血常规</div>
-        <ul>
-          <li>
-            <div class="indications">
-              <div class="left">
-                <div>异</div>
-                <p>白细胞计数</p>
-              </div>
-              <div class="right">
-                <p>3.56 10^9/L</p>
-                <p>正常值范围：4-10</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="indications">
-              <div class="left">
-                <p>红细胞压值</p>
-              </div>
-              <div class="right">
-                <p>47.4 %</p>
-                <p>正常值范围：36-50</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="indications">
-              <div class="left">
-                <p>淋巴细胞计数百分比</p>
-              </div>
-              <div class="right">
-                <p>19.03 %</p>
-                <p>正常值范围：18.3-47.9</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="indications">
-              <div class="left">
-                <p>单核细胞计数百分比</p>
-              </div>
-              <div class="right">
-                <p>8.00 %</p>
-                <p>正常值范围：4.2-15.2</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="indications">
-              <div class="left">
-                <p>嗜酸性粒细胞计数百分比</p>
-              </div>
-              <div class="right">
-                <p>1.20 %</p>
-                <p>正常值范围：0.2-7.6</p>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="item">
-        <div class="title">尿常规</div>
-        <ul>
-          <li>
-            <div class="indications">
-              <div class="left">
-                <p>尿白细胞</p>
-              </div>
-              <div class="right">
-                <p>- /ul</p>
-                <p>正常值范围：-</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="indications">
-              <div class="left">
-                <p>尿亚硝酸盐</p>
-              </div>
-              <div class="right">
-                <p>-</p>
-                <p>正常值范围：阴性</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="indications">
-              <div class="left">
-                <p>尿液酸碱度</p>
-              </div>
-              <div class="right">
-                <p>6.0</p>
-                <p>正常值范围：5.5-6.5</p>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="item">
-        <div class="title">妇科检查</div>
-        <ul>
-          <li class="indications">
-            <div class="indications-type-4">
-              <div>
-                <p>盆腔检查</p>
-              </div>
-              <div>
-                <p>
-                  盆腔检查结果内容，盆腔检查结果内容，盆腔检查结果内容，盆腔检查结果内容，盆腔检查结果内容，盆腔检查结果内容，盆腔检查结果内容。
-                </p>
-              </div>
-            </div>
-          </li>
-          <li class="indications">
-            <div class="indications-type-4">
-              <div>
-                <p>乳腺检查</p>
-              </div>
-              <div>
-                <p>正常</p>
-              </div>
-            </div>
-          </li>
-          <li class="indications">
-            <div class="indications-type-4">
-              <div>
-                <p>子宫检查</p>
-              </div>
-              <div>
-                <p>正常</p>
+                <p>{{ detail.value }}</p>
+                <p>正常值范围：&lt;{{detail.normalValueString}}</p>
               </div>
             </div>
           </li>

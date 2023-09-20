@@ -63,7 +63,7 @@ export default defineComponent({
       <li v-for="order in orders" :key="order.orderId">
         <div class="left">
           <p>{{ order.orderDate }}</p>
-          <p>{{ order.project.name }}</p>
+          <p>{{ order.setmeal.name }}</p>
         </div>
         <div v-if="order.state == 1" class="right" @click="OrderCancel(order)">
           取消预约

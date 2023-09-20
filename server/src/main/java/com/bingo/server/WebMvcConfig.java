@@ -19,16 +19,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
          */
         System.out.println("CorsMapping");
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173")
+                .allowedOrigins("*")
                 .allowedMethods("*")
                 .allowedHeaders("*")
-                .allowCredentials(true)
+//                .allowCredentials(true)
                 .maxAge(36000);
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        System.out.println("Interceptors");
-        registry.addInterceptor(new JwtInterceptor()).excludePathPatterns("/user/verify*", "/user/login").addPathPatterns("/**");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        System.out.println("Interceptors");
+//        registry.addInterceptor(new JwtInterceptor()).excludePathPatterns("/user/verify*", "/user/login").addPathPatterns("/**");
+//    }
 }

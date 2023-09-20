@@ -12,9 +12,18 @@
         <package name="com.bingo.server.po"/>
         <package name="com.bingo.server.dto"/>
     </typeAliases>
-    
+
+    <plugins>
+        <plugin interceptor="com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor">
+            <property name="@page" value="com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor"/>
+            <property name="page:dbType" value="h2"/>
+        </plugin>
+    </plugins>
+
     <mappers>
         <package name="com.bingo.server.mapper"/>
     </mappers>
 
+
 </configuration>
+

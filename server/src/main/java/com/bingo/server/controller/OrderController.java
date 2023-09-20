@@ -27,7 +27,7 @@ public class OrderController {
     private final Map<String, Object> map = new HashMap<>();
 
     @RequestMapping("/done")
-    public int getOrdersDoneByUserId(@RequestBody User user) throws ParseException {
+    public int countOrdersDoneByUserId(@RequestBody User user) throws ParseException {
         int count = 0;
 
         map.put("userId", user.getUserId());
@@ -39,12 +39,19 @@ public class OrderController {
             Date orderDate = dateFormat.parse(order.getOrderDate());
             Date curDate = dateFormat.parse(String.valueOf(LocalDate.now()));
             if (curDate.after(orderDate)) {
-                order.setState(2);
+                order.setState(3);
                 orderMapper.updateById(order);
             } else count++;
         }
 
         return count;
+    }
+
+    @RequestMapping("/getfinished")
+    public List<Order> getOrdersByState(@RequestBody User user) {
+        map.put("userId", user.getUserId());
+        map.put("state", 2);
+        return orderMapper.selectByMap(map);
     }
 
     @RequestMapping("/save")

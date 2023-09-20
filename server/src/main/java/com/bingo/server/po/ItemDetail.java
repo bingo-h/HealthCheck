@@ -3,15 +3,15 @@ package com.bingo.server.po;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 @Data
+@Alias("itemdetail")
 @TableName("checkitemdetailed")
-public class ProjectData {
+public class ItemDetail {
 
 	@TableId
-	private Integer cidrId;
+	private Integer cdId;
 	
 	private String name;
 	
@@ -26,13 +26,9 @@ public class ProjectData {
 	private String normalValueString;
 	
 	private Integer type;
-	
-	private String value;
-	
-	private Integer isError;
-	
+
 	private Integer ciId;
 	
-	private Integer orderId;
+	private String remarks;
 
 }

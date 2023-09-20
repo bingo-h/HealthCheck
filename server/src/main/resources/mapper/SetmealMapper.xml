@@ -3,14 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.bingo.server.mapper.ProjectMapper">
-    <resultMap id="selectprojectRM" type="project">
+<mapper namespace="com.bingo.server.mapper.SetmealMapper">
+    <resultMap id="setmealRM" type="setmeal">
         <id property="smId" column="smId"/>
         <result property="name" column="name"/>
         <result property="type" column="type"/>
         <result property="price" column="price"/>
         <collection property="itemList" ofType="item"
-                    select="com.bingo.server.mapper.ProjectItemMapper.getItemsByProjectId"
+                    select="com.bingo.server.mapper.SetmealDetailedMapper.getItemsBySmId"
                     column="smId"/>
     </resultMap>
 </mapper>

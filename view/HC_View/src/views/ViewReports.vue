@@ -10,28 +10,16 @@
 
     <section>
       <img src="../img/report.png">
-      <ul>
-        <li>
+      <ul v-for="report in reports" :key="report.orderId">
+        <li @click="toReport(report.orderId)">
           <div class="left">
             <i class="fa fa-file-text-o"></i>
             <div>
-              <p>2021年11月24日 体检报告</p>
-              <p>沈阳世贸熙康健康管理中心</p>
+              <p>{{ report.orderDate }} 体检报告</p>
+              <p>{{ report.hospital.name }}</p>
             </div>
           </div>
-          <div class="right" onclick="location.href='report.html'">
-            <i class="fa fa-angle-right"></i>
-          </div>
-        </li>
-        <li>
-          <div class="left">
-            <i class="fa fa-file-text-o"></i>
-            <div>
-              <p>2019年10月11日 体检报告</p>
-              <p>沈阳熙康云医院</p>
-            </div>
-          </div>
-          <div class="right" onclick="location.href='report.html'">
+          <div class="right">
             <i class="fa fa-angle-right"></i>
           </div>
         </li>
@@ -44,11 +32,45 @@
 
 </template>
 
-<script>
+<script lang="ts">
+import axios from "axios";
+import {getSessionStorage, setSessionStorage} from "@/common";
+import {reactive, toRefs} from "vue";
+import router from "@/router";
+import Footer from "@/components/Footer.vue";
+
 export default {
   props: ['ViewReports'],
+  components: {
+    Footer
+  },
   setup() {
+    const state = reactive({
+      reports: {}
+    })
 
+    init()
+
+    function init() {
+      axios.post('order/getfinished', getSessionStorage('user'))
+          .then(response => {
+            state.reports = response.data
+            console.log(response.data)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    }
+
+    function toReport(orderId: any) {
+      setSessionStorage('orderId', orderId)
+      router.push('/report')
+    }
+
+    return {
+      ...toRefs(state),
+      toReport
+    }
   }
 }
 </script>

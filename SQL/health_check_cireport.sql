@@ -1,0 +1,53 @@
+-- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
+--
+-- Host: localhost    Database: health_check
+-- ------------------------------------------------------
+-- Server version	8.0.34
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `cireport`
+--
+
+DROP TABLE IF EXISTS `cireport`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cireport` (
+  `cirId` int NOT NULL AUTO_INCREMENT COMMENT '检查项报告主键',
+  `ciId` int NOT NULL COMMENT '检查项编号',
+  `ciName` varchar(30) NOT NULL COMMENT '检查项名称',
+  `orderId` int NOT NULL COMMENT '所属预约编号',
+  PRIMARY KEY (`cirId`)
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cireport`
+--
+
+LOCK TABLES `cireport` WRITE;
+/*!40000 ALTER TABLE `cireport` DISABLE KEYS */;
+INSERT INTO `cireport` VALUES (44,1,'一般检查',100569001),(45,2,'血常规',100569001),(46,3,'尿常规',100569001),(47,6,'妇科检查',100569001),(48,1,'一般检查',100569823),(49,2,'血常规',100569823),(50,3,'尿常规',100569823),(51,1,'一般检查',100569830),(52,2,'血常规',100569830),(53,3,'尿常规',100569830),(54,5,'肝功能',100569830),(55,6,'妇科检查',100569830),(56,1,'一般检查',100569838),(57,2,'血常规',100569838),(58,3,'尿常规',100569838),(59,4,'肾功能',100569838),(60,6,'妇科检查',100569838),(61,1,'一般检查',100569836),(62,2,'血常规',100569836),(63,3,'尿常规',100569836),(64,5,'肝功能',100569836),(65,1,'一般检查',100569827),(66,2,'血常规',100569827),(67,3,'尿常规',100569827),(68,4,'肾功能',100569827),(69,1,'一般检查',100569824),(70,2,'血常规',100569824),(71,3,'尿常规',100569824),(72,4,'肾功能',100569824),(73,1,'一般检查',100569833),(74,2,'血常规',100569833),(75,3,'尿常规',100569833),(76,4,'肾功能',100569833),(77,6,'妇科检查',100569833),(78,1,'一般检查',100569832),(79,2,'血常规',100569832),(80,3,'尿常规',100569832),(81,4,'肾功能',100569832),(82,6,'妇科检查',100569832),(83,1,'一般检查',100569840),(84,2,'血常规',100569840),(85,3,'尿常规',100569840),(86,5,'肝功能',100569840),(87,1,'一般检查',100569831),(88,2,'血常规',100569831),(89,3,'尿常规',100569831),(90,5,'肝功能',100569831),(91,1,'一般检查',100569842),(92,2,'血常规',100569842),(93,3,'尿常规',100569842);
+/*!40000 ALTER TABLE `cireport` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2023-09-20 15:01:55

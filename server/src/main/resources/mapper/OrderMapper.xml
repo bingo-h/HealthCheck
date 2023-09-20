@@ -13,8 +13,8 @@
         <result property="state" column="state"/>
         <association property="hospital" column="hpId" javaType="hospital"
                      select="com.bingo.server.mapper.HospitalMapper.selectById"/>
-        <association property="project" column="smId" javaType="project"
-                     select="com.bingo.server.mapper.ProjectMapper.selectById"/>
+        <association property="setmeal" column="smId" javaType="setmeal"
+                     select="com.bingo.server.mapper.SetmealMapper.selectById"/>
     </resultMap>
 
     <select id="listOrdersNumber" parameterType="OrderMapperDto"

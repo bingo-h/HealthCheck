@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.ibatis.type.Alias;
 
 @Data
@@ -32,5 +30,5 @@ public class Order {
 	private Hospital hospital;
 
 	@TableField(exist = false)
-	private Project project;
+	private Setmeal setmeal;
 }
