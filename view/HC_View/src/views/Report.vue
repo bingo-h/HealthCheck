@@ -25,6 +25,11 @@ export default defineComponent({
           .then(response => {
                 console.log("report: " + response.data)
                 state.reports = response.data
+
+                for (const report in state.reports) {
+                  report.isShow = false
+                }
+
               }
           )
           .catch(error => {
@@ -122,8 +127,10 @@ export default defineComponent({
 
     <div class="nav-content-item" v-if="divVisible == 'detail'">
       <div class="item" v-for="report in reports">
-        <div class="title">{{ report.ciName }}</div>
-        <ul>
+        <div class="title" @click="report.isShow = !report.isShow;">
+          {{ report.ciName }}
+        </div>
+        <ul v-if="report.isShow">
           <li v-for="detail in details">
             <div class="indications">
               <div class="left">
@@ -132,7 +139,7 @@ export default defineComponent({
               </div>
               <div class="right">
                 <p>{{ detail.value }}</p>
-                <p>正常值范围：&lt;{{detail.normalValueString}}</p>
+                <p>正常值范围：&lt;{{ detail.normalValueString }}</p>
               </div>
             </div>
           </li>

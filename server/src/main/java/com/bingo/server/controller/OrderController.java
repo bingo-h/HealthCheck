@@ -61,6 +61,7 @@ public class OrderController {
 
     @RequestMapping("/getall")
     public List<Order> getOrdersByUserId(@RequestBody User user) {
+        System.out.println(user);
         map.put("userId", user.getUserId());
         return orderMapper.selectByMap(map);
     }

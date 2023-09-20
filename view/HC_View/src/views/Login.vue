@@ -1,5 +1,4 @@
 <template>
-  <!-- 总容器 -->
   <div class="wrapper">
     <h1>体检预约-登录</h1>
     <section>
@@ -28,8 +27,8 @@
         <div class="line"></div>
         <p>有疑问请联系客服</p>
         <div class="line"></div>
+        <p>4008-XXX-XXX</p>
       </div>
-      <p>4008-XXX-XXX</p>
     </footer>
   </div>
 </template>
@@ -39,7 +38,7 @@
 //导入需要的基本工具
 import {reactive, toRefs} from 'vue'
 import {useRouter} from 'vue-router'
-import {getSessionStorage, setSessionStorage} from '@/common';
+import {setSessionStorage} from '@/common';
 import axios from 'axios'
 import {checkNumber, checkPassword} from "@/check";
 
