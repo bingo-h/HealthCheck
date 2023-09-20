@@ -19,10 +19,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
          */
         System.out.println("CorsMapping");
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOrigins("http://localhost:5173")
                 .allowedMethods("*")
                 .allowedHeaders("*")
-//                .allowCredentials(true)
+                .allowCredentials(true)
                 .maxAge(36000);
     }
 

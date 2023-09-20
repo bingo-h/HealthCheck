@@ -116,6 +116,7 @@ public class UserController {
         List<User> users = userMapper.selectList(wrapper);
 
         if (!users.isEmpty()) {
+            System.out.println("error");
             return Constance.ERROR;
         }
 
