@@ -1,5 +1,6 @@
 package com.bingo.server.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bingo.server.mapper.OrderMapper;
 import com.bingo.server.po.Order;
 import jakarta.annotation.Resource;
@@ -10,9 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bingo.server.po.User;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,24 +25,13 @@ public class OrderController {
     private final Map<String, Object> map = new HashMap<>();
 
     @RequestMapping("/done")
-    public int countOrdersDoneByUserId(@RequestBody User user) throws ParseException {
-        int count = 0;
-
+    public Long countOrdersDoneByUserId(@RequestBody User user) {
         map.put("userId", user.getUserId());
         map.put("state", 1);
+        QueryWrapper<Order> wrapper = new QueryWrapper<>();
+        wrapper.allEq(map);
 
-        List<Order> orders = orderMapper.selectByMap(map);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        for (Order order : orders) {
-            Date orderDate = dateFormat.parse(order.getOrderDate());
-            Date curDate = dateFormat.parse(String.valueOf(LocalDate.now()));
-            if (curDate.after(orderDate)) {
-                order.setState(3);
-                orderMapper.updateById(order);
-            } else count++;
-        }
-
-        return count;
+        return orderMapper.selectCount(wrapper);
     }
 
     @RequestMapping("/getfinished")
@@ -61,7 +48,6 @@ public class OrderController {
 
     @RequestMapping("/getall")
     public List<Order> getOrdersByUserId(@RequestBody User user) {
-        System.out.println(user);
         map.put("userId", user.getUserId());
         return orderMapper.selectByMap(map);
     }

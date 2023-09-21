@@ -20,10 +20,8 @@ export default defineComponent({
     init()
 
     function init() {
-      console.log(state.orderId)
       axios.post('report/get', state.orderId)
           .then(response => {
-                console.log("report: " + response.data)
                 state.reports = response.data
 
                 for (const report in state.reports) {
@@ -39,7 +37,6 @@ export default defineComponent({
       axios.post('report/getdetail', state.orderId)
           .then(response => {
             state.details = response.data
-            console.log("details: " + state.details)
             for (let i = 0; i < state.details.length; i++) {
               if (state.details[i].isError == 1) state.errors.push(state.details[i])
             }
@@ -100,7 +97,7 @@ export default defineComponent({
               </div>
               <div class="right">
                 <p>{{ error.value }}</p>
-                <p>正常值范围：&lt;{{ error.maxrange }}</p>
+                <p>正常值范围：{{ error.maxrange }}</p>
               </div>
             </div>
           </li>
@@ -132,14 +129,14 @@ export default defineComponent({
         </div>
         <ul v-if="report.isShow">
           <li v-for="detail in details">
-            <div class="indications">
+            <div class="indications"  v-if="detail.ciId == report.ciId">
               <div class="left">
-                <div>异</div>
+                <div v-if="detail.isError == 1">异</div>
                 <p>{{ detail.name }}</p>
               </div>
               <div class="right">
                 <p>{{ detail.value }}</p>
-                <p>正常值范围：&lt;{{ detail.normalValueString }}</p>
+                <p>正常值范围：{{ detail.normalValueString }}</p>
               </div>
             </div>
           </li>

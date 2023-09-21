@@ -13,9 +13,8 @@ import org.apache.ibatis.type.Alias;
 public class Order {
 
 	@TableId
-	@OrderBy
 	private Integer orderId;
-	
+
 	private String orderDate;
 	
 	private String userId;

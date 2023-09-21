@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CiDetailedReportService {
 
-    List<CiDetailedReport> selectByCiId(Integer ciId);
+    List<CiDetailedReport> selectByOrderIdCiId(Integer ciId, Integer orderId);
 }

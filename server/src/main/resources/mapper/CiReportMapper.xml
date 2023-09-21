@@ -10,6 +10,6 @@
         <result property="ciName" column="ciName"/>
         <result property="orderId" column="orderId"/>
         <collection property="ciDetailedReports" column="{ciId=ciId, orderId=orderId}"
-                    select="com.bingo.server.mapper.CiDetailedReportMapper.selectByCiId" ofType="ciDetailedReport"/>
+                    select="com.bingo.server.mapper.CiDetailedReportMapper.selectByOrderIdCiId" ofType="ciDetailedReport"/>
     </resultMap>
 </mapper>

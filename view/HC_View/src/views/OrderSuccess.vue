@@ -7,6 +7,10 @@ export default defineComponent({
   name: "OrderSuccess",
   components: {Footer},
   setup() {
+    function toViewOrders() {
+      router.push('/vieworders')
+    }
+
     return {
       toViewOrders,
       OrderForOthers

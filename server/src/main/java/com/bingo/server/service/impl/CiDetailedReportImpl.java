@@ -16,11 +16,12 @@ public class CiDetailedReportImpl implements CiDetailedReportService {
     @Resource
     private CiDetailedReportMapper ciDetailedReportMapper;
 
-    private Map<String, Object> map = new HashMap<>();
+    private final Map<String, Object> map = new HashMap<>();
 
     @Override
-    public List<CiDetailedReport> selectByCiId(Integer ciId) {
+    public List<CiDetailedReport> selectByOrderIdCiId(Integer ciId, Integer orderId) {
         map.put("ciId", ciId);
+        map.put("orderId", orderId);
         return ciDetailedReportMapper.selectByMap(map);
     }
 }

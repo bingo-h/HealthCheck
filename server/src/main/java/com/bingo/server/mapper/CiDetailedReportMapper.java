@@ -11,5 +11,5 @@ import java.util.List;
 public interface CiDetailedReportMapper extends BaseMapper<CiDetailedReport> {
 
     @Select("select * from cidetailedreport where ciId=#{ciId} and orderId=#{orderId}")
-    List<CiDetailedReport> selectByCiId(Integer ciId, Integer orderId);
+    List<CiDetailedReport> selectByOrderIdCiId(Integer ciId, Integer orderId);
 }
